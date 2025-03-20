@@ -38,4 +38,14 @@ def open_profile_and_scroll(profile_url):
     start = time.time()
     while time.time() - start < 5: #scrolls for 5 seconds
         driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+
+def extract_data():
+    #to be implemented
+    pass
     
+    
+    
+if __name__ == "__main__":
+    login()
+    open_profile_and_scroll("https://www.linkedin.com/in/john-doe-123")
+    extract_data()
