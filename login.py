@@ -9,3 +9,7 @@ import time
 # auto install chrome driver
 service = Service(ChromeDriverManager().install())
 driver = webdriver.Chrome(service=service)
+
+driver.get("https://www.linkedin.com/login")
+
+time.sleep(5) # wait for page to load 5s
