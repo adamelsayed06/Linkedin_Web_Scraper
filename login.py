@@ -44,7 +44,7 @@ def extract_data(profile_url):
     headline = driver.find_element(By.XPATH, "/html/body/div[6]/div[3]/div/div/div[2]/div/div/main/section[1]/div[2]/div[2]/div[1]/div[2]").text #headline element
     description = driver.find_element(By.XPATH, "/html/body/div[6]/div[3]/div/div/div[2]/div/div/main/section[3]/div[3]/div").text #description element
     
-    open_profile_and_scroll(profile_url + "/details/skills/") #opens skills section of profile
+    open_profile_and_scroll(profile_url + "details/skills/") #opens skills section of profile
     skills = driver.find_element(By.XPATH, "/html/body/div[6]/div[3]/div/div/div[2]/div/div/main/section/div[2]/div[2]").text
     
     return [headline, skills, description]
