@@ -54,23 +54,20 @@ def extract_data(profile_url):
     source = driver.page_source #get source code of loaded page
     soup = BeautifulSoup(source, "html.parser") #parse source code with BS4 and default parser
     
+    name = soup.find('div', class_="jGartttxmtrDzkrUUMcDSSWGJxlJixOGnZIHk") #name element
     headline = soup.find('div', class_="text-body-medium break-words") #headline element
+    description =
+    skills =  #open_profile_and_scroll(url + "detail/skills/")
+   
     
-    if headline:
-        print(headline.get_text(strip=True))
-        return headline.get_text(strip=True)
+
+    if headline or description or name or skills is None:
+        return "ERROR"
     else:
-        return "No headline found"
-    return headline
+        return [name.get_text(strip=True), headline.get_text(strip=True), description.get_text(strip=True), skills.get_text(strip=True)]
+    #maybe change to a try-catch?
     
     
-    headline = driver.find_element(By.XPATH, "/html/body/div[6]/div[3]/div/div/div[2]/div/div/main/section[1]/div[2]/div[2]/div[1]/div[2]").text #headline element
-    description = driver.find_element(By.XPATH, "/html/body/div[6]/div[3]/div/div/div[2]/div/div/main/section[3]/div[3]/div").text #description element
-    
-    open_profile_and_scroll(profile_url + "details/skills/") #opens skills section of profile
-    skills = driver.find_element(By.XPATH, "/html/body/div[6]/div[3]/div/div/div[2]/div/div/main/section/div[2]/div[2]").text
-    
-    return [headline, skills, description]
     
     
     
