@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 from bs4 import BeautifulSoup
 import os
 import time
-
+#testing if commit is signed
 load_dotenv()
 
 USERNAME = os.getenv("LINKEDIN_USERNAME")
