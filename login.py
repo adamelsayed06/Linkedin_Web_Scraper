@@ -6,9 +6,10 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from dotenv import load_dotenv
 from bs4 import BeautifulSoup
+import requests
 import os
 import time
-#testing if commit is signed
+
 load_dotenv()
 
 USERNAME = os.getenv("LINKEDIN_USERNAME")
@@ -50,6 +51,19 @@ def open_profile_and_scroll(profile_url):
 
 def extract_data(profile_url):
     #TODO: fix this function, XPATHs not found -- use BS4???
+    source = driver.page_source #get source code of loaded page
+    soup = BeautifulSoup(source, "html.parser") #parse source code with BS4 and default parser
+    
+    headline = soup.find('div', class_="text-body-medium break-words") #headline element
+    
+    if headline:
+        print(headline.get_text(strip=True))
+        return headline.get_text(strip=True)
+    else:
+        return "No headline found"
+    return headline
+    
+    
     headline = driver.find_element(By.XPATH, "/html/body/div[6]/div[3]/div/div/div[2]/div/div/main/section[1]/div[2]/div[2]/div[1]/div[2]").text #headline element
     description = driver.find_element(By.XPATH, "/html/body/div[6]/div[3]/div/div/div[2]/div/div/main/section[3]/div[3]/div").text #description element
     
