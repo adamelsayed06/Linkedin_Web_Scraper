@@ -61,3 +61,4 @@ def extract_data(profile_url):
     
 if __name__ == "__main__":
     login()
+    open_profile_and_scroll("mock-profile-url")
