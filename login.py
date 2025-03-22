@@ -56,9 +56,8 @@ def extract_data(profile_url):
     
     name = soup.find('div', class_="jGartttxmtrDzkrUUMcDSSWGJxlJixOGnZIHk") #name element
     headline = soup.find('div', class_="text-body-medium break-words") #headline element
-    description = soup.find('div', class_="RinVMSOWRtYXwYvTNDaswJSYyXBbKjzFFUWQ full-width t-14 t-normal t-black display-flex align-items-center")
-    print(description.get_text(strip=True))
-    return None
+    description = soup.find('div', class_="RinVMSOWRtYXwYvTNDaswJSYyXBbKjzFFUWQ full-width t-14 t-normal t-black display-flex align-items-center") #description element
+    #note that there may be weird characters needs to be cleaned
     # skills =  #open_profile_and_scroll(url + "detail/skills/")
    
     
