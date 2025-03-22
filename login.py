@@ -60,10 +60,14 @@ def extract_data(profile_url):
     #note that there may be weird characters needs to be cleaned
     
     #open & parse skills tab
-    open_profile_and_scroll(profile_url + "detail/skills/")
+    open_profile_and_scroll(profile_url + "details/skills/")
     source = driver.page_source 
     soup = BeautifulSoup(source, "html.parser")
-    skills = soup.find('div', class_="scaffold-finite-scroll__content")
+    skills_list = soup.find('ul', class_="JqmyCNHukZleLyGJMVErdOZaZFoDArjDs") #space might be a problem
+    print(skills_list.get_text(strip=True))
+    skills = skills_list.findChildren()
+    print(skills.get_text(strip=True)) 
+    #skills = soup.find('div', class_="scaffold-finite-scroll__content")
    
 
     if headline or description or name or skills is None:
