@@ -63,7 +63,7 @@ def extract_data(profile_url):
     open_profile_and_scroll(profile_url + "detail/skills/")
     source = driver.page_source 
     soup = BeautifulSoup(source, "html.parser")
-    skills = soup.find('')
+    skills = soup.find('div', class_="scaffold-finite-scroll__content")
    
 
     if headline or description or name or skills is None:
