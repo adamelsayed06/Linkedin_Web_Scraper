@@ -58,9 +58,13 @@ def extract_data(profile_url):
     headline = soup.find('div', class_="text-body-medium break-words") #headline element
     description = soup.find('div', class_="RinVMSOWRtYXwYvTNDaswJSYyXBbKjzFFUWQ full-width t-14 t-normal t-black display-flex align-items-center") #description element
     #note that there may be weird characters needs to be cleaned
-    # skills =  #open_profile_and_scroll(url + "detail/skills/")
-   
     
+    #open & parse skills tab
+    open_profile_and_scroll(profile_url + "detail/skills/")
+    source = driver.page_source 
+    soup = BeautifulSoup(source, "html.parser")
+    skills = soup.find('')
+   
 
     if headline or description or name or skills is None:
         return "ERROR"
