@@ -49,6 +49,7 @@ def open_profile_and_scroll(profile_url):
         driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
 
 def extract_data(profile_url):
+    #TODO: fix this function, XPATHs not found -- use BS4???
     headline = driver.find_element(By.XPATH, "/html/body/div[6]/div[3]/div/div/div[2]/div/div/main/section[1]/div[2]/div[2]/div[1]/div[2]").text #headline element
     description = driver.find_element(By.XPATH, "/html/body/div[6]/div[3]/div/div/div[2]/div/div/main/section[3]/div[3]/div").text #description element
     
@@ -61,4 +62,6 @@ def extract_data(profile_url):
     
 if __name__ == "__main__":
     login()
-    open_profile_and_scroll("mock-profile-url")
+    open_profile_and_scroll("https://www.linkedin.com/in/adam-elsayed-9b0162245/")
+    data = extract_data("https://www.linkedin.com/in/adam-elsayed-9b0162245/")
+    print(data)
