@@ -63,22 +63,15 @@ def extract_data(profile_url):
     open_profile_and_scroll(profile_url + "details/skills/")
     source = driver.page_source 
     soup = BeautifulSoup(source, "html.parser")
-    skills_list = soup.find('ul', class_="JqmyCNHukZleLyGJMVErdOZaZFoDArjDs") #space might be a problem
-    print(skills_list.get_text(strip=True))
-    skills = skills_list.findChildren()
-    print(skills.get_text(strip=True)) 
-    #skills = soup.find('div', class_="scaffold-finite-scroll__content")
-   
+    skills = soup.find('ul', class_="JqmyCNHukZleLyGJMVErdOZaZFoDArjDs") #space might be a problem
+    #remove numbers and word endorsemenets, keep places of employment/titles could give info for accessibility skills
 
     if headline or description or name or skills is None:
         return "ERROR"
     else:
         return [name.get_text(strip=True), headline.get_text(strip=True), description.get_text(strip=True), skills.get_text(strip=True)]
     #maybe change to a try-catch?
-    
-    
-    
-    
+
     
 if __name__ == "__main__":
     login()
