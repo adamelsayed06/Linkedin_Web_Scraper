@@ -1,4 +1,5 @@
 from selenium import webdriver
+from selenium.webdriver import ChromeOptions
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
@@ -10,13 +11,16 @@ import time
 
 load_dotenv()
 
-USERNAME = os.getenv("USERNAME")
-PASSWORD = os.getenv("PASSWORD")
+USERNAME = os.getenv("LINKEDIN_USERNAME")
+PASSWORD = os.getenv("LINKEDIN_PASSWORD")
 
 # auto install chrome driver
+chrome_opts = ChromeOptions() 
+chrome_opts.add_experimental_option("detach", True)
 
 service = Service(ChromeDriverManager().install())
-driver = webdriver.Chrome(service=service)
+driver = webdriver.Chrome(service=service, options=chrome_opts)
+
 
 def login():
     driver.get("https://www.linkedin.com/login")
@@ -25,9 +29,13 @@ def login():
 
     username = driver.find_element(By.ID, "username") # <input id="username"> on linkedin website, searches for this tag
     username.send_keys(USERNAME) # enters username
+    
+    time.sleep(2)
 
     password = driver.find_element(By.ID, "password") # <input id="password"> on linkedin website, searches for this tag
     password.send_keys(PASSWORD) # enters password
+    
+    time.sleep(2)
 
     driver.find_element(By.XPATH, "//button[@type='submit']").click() #find button with type submit (login button) and clicks it
 
@@ -53,5 +61,3 @@ def extract_data(profile_url):
     
 if __name__ == "__main__":
     login()
-    open_profile_and_scroll("https://www.linkedin.com/in/john-doe-123")
-    extract_data()
