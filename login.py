@@ -72,9 +72,23 @@ def extract_data(profile_url):
         return [name.get_text(strip=True), headline.get_text(strip=True), description.get_text(strip=True), skills.get_text(strip=True)]
     #maybe change to a try-catch?
 
+def clean_data(data):
+    #remove any unwanted characters/info from data
+    pass
+
+def extract_keywords(data):
+    #return a list of accessibility keywords by comparing similarity to list of accessibility keywords
+    pass
     
 if __name__ == "__main__":
     login()
     open_profile_and_scroll("https://www.linkedin.com/in/adam-elsayed-9b0162245/")
     data = extract_data("https://www.linkedin.com/in/adam-elsayed-9b0162245/")
     print(data)
+    cleaned_data = clean_data(data)
+    print(cleaned_data)
+    keywords = extract_keywords(cleaned_data)
+    print(keywords)
+    #add name + keywords to postgres database
+    
+    
