@@ -79,16 +79,21 @@ def clean_data(data):
 def extract_keywords(data):
     #return a list of accessibility keywords by comparing similarity to list of accessibility keywords
     pass
+
+def get_new_profiles(original_url, count):
+    #click all the profiles on the right and run through the same process, returns an array of linkedin URLS
+    #initialize array of profiles -> get all profiles on the right and add to array -> open each profile and scroll -> get new profiles -> repeat count times
+    pass
     
 if __name__ == "__main__":
+    #base case, runs through first profile
     login()
     open_profile_and_scroll("https://www.linkedin.com/in/adam-elsayed-9b0162245/")
-    data = extract_data("https://www.linkedin.com/in/adam-elsayed-9b0162245/")
-    print(data)
-    cleaned_data = clean_data(data)
-    print(cleaned_data)
-    keywords = extract_keywords(cleaned_data)
-    print(keywords)
-    #add name + keywords to postgres database
+    profiles = get_new_profiles("https://www.linkedin.com/in/adam-elsayed-9b0162245/", 1000) 
+    for profile in profiles:
+        data = extract_data(profile)
+        cleaned_data = clean_data(data)
+        keywords = extract_keywords(cleaned_data)
+        #add name + keywords to postgres database
     
     
