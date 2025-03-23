@@ -10,11 +10,17 @@ import requests
 import os
 import time
 import spacy
-
+from spacy.matcher import PhraseMatcher
 load_dotenv()
 
 USERNAME = os.getenv("LINKEDIN_USERNAME")
 PASSWORD = os.getenv("LINKEDIN_PASSWORD")
+ACCESSIBILITY_KEYWORDS = {
+    "accessibility", "a11y", "wcag", "screen reader", "assistive technology",
+    "inclusive design", "universal design", "alt text", "aria", "captioning",
+    "closed captions", "color contrast", "cognitive accessibility",
+    "disability inclusion", "web accessibility", "usability", "ada compliance"
+    }
 
 # auto install chrome driver
 chrome_opts = ChromeOptions() 
@@ -81,8 +87,21 @@ def clean_data(data):
 def extract_keywords(data):
     #return a list of accessibility keywords by comparing similarity to list of accessibility keywords
     nlp = spacy.load("en_core_web_lg")
-    pass
+    matcher = PhraseMatcher(nlp.vocab, attr="LOWER") #case insensitive matching aka Ally = ally
+    patterns = [] #patterns to search for in data
+    for keyword in ACCESSIBILITY_KEYWORDS:
+        patterns.append(nlp(keyword)) #makes into spacy object
+    matcher.add("AccessibilityKeywords", None, patterns) #add patterns to matcher
+    
+    doc = nlp(data) #make data into spacy object
+    matches = matcher(doc) #find matches in data
+    #matches is a list of tuples, each tuple contains the match id, start index, and end index of the match
+    
+    keywords = []
+    for match_id, start, end in matches:
+        keywords.append(doc[start:end].text) #add keyword to list of keywords
 
+    return keywords
 def get_new_profiles(count):
     profiles = []
     
