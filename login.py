@@ -76,7 +76,7 @@ def extract_data(profile_url):
     open_profile_and_scroll(profile_url + "details/skills/")
     source = driver.page_source 
     soup = BeautifulSoup(source, "html.parser")
-    skills = soup.find('ul', class_="JqmyCNHukZleLyGJMVErdOZaZFoDArjDs") #space might be a problem
+    skills = soup.find('ul', class_="JqmyCNHukZleLyGJMVErdOZaZFoDArjDs") 
     #remove numbers and word endorsemenets, keep places of employment/titles could give info for accessibility skills
 
     if headline or description or name or skills is None:
@@ -93,6 +93,7 @@ def clean_data(data):
 #@return list of strings
 def extract_keywords(data):
     #return a list of accessibility keywords by comparing similarity to list of accessibility keywords
+    #TODO: add layer for semantic similarity, account for case where there is NO accessibility keywords in data
     nlp = spacy.load("en_core_web_lg")
     matcher = PhraseMatcher(nlp.vocab, attr="LOWER") #case insensitive matching aka Ally = ally
     patterns = [] #patterns to search for in data
