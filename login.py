@@ -79,7 +79,7 @@ def extract_keywords(data):
     #return a list of accessibility keywords by comparing similarity to list of accessibility keywords
     pass
 
-def get_new_profiles(original_url, count):
+def get_new_profiles(count):
     profiles = []
     
     for i in range(count):
@@ -101,7 +101,7 @@ if __name__ == "__main__":
     #base case, runs through first profile
     login()
     open_profile_and_scroll("https://www.linkedin.com/in/adam-elsayed-9b0162245/")
-    profiles = get_new_profiles("https://www.linkedin.com/in/adam-elsayed-9b0162245/", 1000) 
+    profiles = get_new_profiles(10) 
     for profile in profiles:
         data = extract_data(profile)
         cleaned_data = clean_data(data)
