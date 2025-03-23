@@ -9,6 +9,7 @@ from bs4 import BeautifulSoup
 import requests
 import os
 import time
+import spacy
 
 load_dotenv()
 
@@ -72,11 +73,14 @@ def extract_data(profile_url):
     #maybe change to a try-catch?
 
 def clean_data(data):
-    #remove any unwanted characters/info from data
+    #remove any unwanted characters/info from data and make it all a string
     pass
 
+#@param data: string
+#@return list of strings
 def extract_keywords(data):
     #return a list of accessibility keywords by comparing similarity to list of accessibility keywords
+    nlp = spacy.load("en_core_web_lg")
     pass
 
 def get_new_profiles(count):
