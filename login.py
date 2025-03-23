@@ -19,8 +19,15 @@ ACCESSIBILITY_KEYWORDS = {
     "accessibility", "a11y", "wcag", "screen reader", "assistive technology",
     "inclusive design", "universal design", "alt text", "aria", "captioning",
     "closed captions", "color contrast", "cognitive accessibility",
-    "disability inclusion", "web accessibility", "usability", "ada compliance"
-    }
+    "disability inclusion", "web accessibility", "usability", "ada compliance",
+    "digital accessibility expert", "accessibility engineer", "accessibility specialist",
+    "UX accessibility consultant", "web accessibility developer", "ADA compliance officer",
+    "disability advocate", "human-centered design specialist", "accessibility consultant",
+    "usability expert", "voiceover", "JAWS", "NVDA", "TalkBack", "braille displays",
+    "semantic HTML", "keyboard navigation", "digital equality", "assistive UX",
+    "social model of disability", "equity and accessibility", "neurodiversity", 
+    "human-centered design", "empathy-driven design", "barrier-free access"
+}
 
 # auto install chrome driver
 chrome_opts = ChromeOptions() 
@@ -102,6 +109,7 @@ def extract_keywords(data):
         keywords.append(doc[start:end].text) #add keyword to list of keywords
 
     return keywords
+
 def get_new_profiles(count):
     profiles = []
     
