@@ -92,8 +92,7 @@ def clean_data(data):
 #@param data: string
 #@return list of strings
 def extract_keywords(data):
-    #return a list of accessibility keywords by comparing similarity to list of accessibility keywords
-    #TODO: add layer for semantic similarity, account for case where there is NO accessibility keywords in data
+    #TODO: rewrite with fuzzy search instead of spacy -- don't just want exact matches
     nlp = spacy.load("en_core_web_lg")
     matcher = PhraseMatcher(nlp.vocab, attr="LOWER") #case insensitive matching aka Ally = ally
     patterns = [] #patterns to search for in data
