@@ -82,7 +82,6 @@ def extract_keywords(data):
 def get_new_profiles(original_url, count):
     profiles = []
     
-    
     for i in range(count):
         source = driver.page_source 
         soup = BeautifulSoup(source, "html.parser")
@@ -90,10 +89,11 @@ def get_new_profiles(original_url, count):
         
         for div in divs:
             a_tag = div.find('a')
-            profiles.append(a_tag['href'])
-        open_profile_and_scroll(a_tag['href'])
-        
-        
+            if a_tag:
+                profiles.append(a_tag['href'])
+            else:
+                print("ERROR: No a tag found")
+        open_profile_and_scroll(a_tag['href']) #only scrolls last element -> potential optimization
         
     #initialize array of profiles -> get all profiles on the right and add to array -> open each profile and scroll -> get new profiles -> repeat count time
     
