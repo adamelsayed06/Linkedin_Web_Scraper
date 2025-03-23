@@ -50,7 +50,6 @@ def open_profile_and_scroll(profile_url):
         driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
 
 def extract_data(profile_url):
-    #TODO: fix this function, XPATHs not found -- use BS4???
     source = driver.page_source #get source code of loaded page
     soup = BeautifulSoup(source, "html.parser") #parse source code with BS4 and default parser
     
@@ -81,9 +80,22 @@ def extract_keywords(data):
     pass
 
 def get_new_profiles(original_url, count):
-    #click all the profiles on the right and run through the same process, returns an array of linkedin URLS
-    #initialize array of profiles -> get all profiles on the right and add to array -> open each profile and scroll -> get new profiles -> repeat count times
-    pass
+    profiles = []
+    
+    
+    for i in range(count):
+        source = driver.page_source 
+        soup = BeautifulSoup(source, "html.parser")
+        divs = soup.find_all('div', class_="display-flex flex-row justify-space-between")
+        
+        for div in divs:
+            a_tag = div.find('a')
+            profiles.append(a_tag['href'])
+        open_profile_and_scroll(a_tag['href'])
+        
+        
+        
+    #initialize array of profiles -> get all profiles on the right and add to array -> open each profile and scroll -> get new profiles -> repeat count time
     
 if __name__ == "__main__":
     #base case, runs through first profile
