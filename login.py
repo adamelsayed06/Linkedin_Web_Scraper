@@ -9,8 +9,7 @@ from bs4 import BeautifulSoup
 import requests
 import os
 import time
-import spacy
-from spacy.matcher import PhraseMatcher
+
 load_dotenv()
 
 USERNAME = os.getenv("LINKEDIN_USERNAME")
@@ -93,22 +92,7 @@ def clean_data(data):
 #@return list of strings
 def extract_keywords(data):
     #TODO: rewrite with fuzzy search instead of spacy -- don't just want exact matches
-    nlp = spacy.load("en_core_web_lg")
-    matcher = PhraseMatcher(nlp.vocab, attr="LOWER") #case insensitive matching aka Ally = ally
-    patterns = [] #patterns to search for in data
-    for keyword in ACCESSIBILITY_KEYWORDS:
-        patterns.append(nlp(keyword)) #makes into spacy object
-    matcher.add("AccessibilityKeywords", None, patterns) #add patterns to matcher
-    
-    doc = nlp(data) #make data into spacy object
-    matches = matcher(doc) #find matches in data
-    #matches is a list of tuples, each tuple contains the match id, start index, and end index of the match
-    
-    keywords = []
-    for match_id, start, end in matches:
-        keywords.append(doc[start:end].text) #add keyword to list of keywords
-
-    return keywords
+    pass
 
 def get_new_profiles(count):
     profiles = []
