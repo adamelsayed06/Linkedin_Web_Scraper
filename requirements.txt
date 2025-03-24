@@ -3,4 +3,3 @@ bs4
 webdriver-manager
 python-dotenv
 requests
-spacy
