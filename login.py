@@ -119,21 +119,10 @@ def get_new_profiles(count):
     #initialize array of profiles -> get all profiles on the right and add to array -> open each profile and scroll -> get new profiles -> repeat count time
     
 if __name__ == "__main__":
-    #write tests for clean data:
-    test_data = [
-        "Hello\nWorld This\tis\ta\ttest Special@#Characters!",
-        "NoSpecialCharacters", "JustSomeText",
-        "123Numbers 456InBetween789",
-        "\n\t   "
-    ]
-
-    for test in test_data:
-        print(test)
-        result = clean_data(test)
-        print(result)
+    
     
     #base case, runs through first profile
-    '''
+    
     login()
     open_profile_and_scroll("https://www.linkedin.com/in/adam-elsayed-9b0162245/")
     profiles = get_new_profiles(10) 
@@ -142,5 +131,3 @@ if __name__ == "__main__":
         cleaned_data = clean_data(data)
         keywords = extract_keywords(cleaned_data)
         #add name + keywords to postgres database
-    
-    '''
