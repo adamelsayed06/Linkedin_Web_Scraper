@@ -119,9 +119,8 @@ def get_new_profiles(count):
     #initialize array of profiles -> get all profiles on the right and add to array -> open each profile and scroll -> get new profiles -> repeat count time
     
 if __name__ == "__main__":
-    
-    
-    #base case, runs through first profile
+    #TODO: test get new profiles, write extract keyword function w/fuzzy, and add name + keywords to postgres
+    #TODO: error handling, and open multiple elements at once, and anti-bot detection
     
     login()
     open_profile_and_scroll("https://www.linkedin.com/in/adam-elsayed-9b0162245/")
