@@ -121,7 +121,17 @@ def get_new_profiles(count):
     
 if __name__ == "__main__":
     #write tests for clean data:
-    
+    test_data = [
+        (["Hello\nWorld", "This\tis\ta\ttest", "Special@#Characters!"], "Hello World This is a test SpecialCharacters"),
+        (["NoSpecialCharacters", "JustSomeText"], "NoSpecialCharacters JustSomeText"),
+        (["123Numbers", "456InBetween789"], "123Numbers 456InBetween789"),
+        (["\n\t", "   "], " "),
+        (["Mixed\n\tCharacters!@#", "With123Numbers"], "Mixed Characters With123Numbers")
+    ]
+
+    for test in test_data:
+        result = clean_data(test)
+        print(result)
     
     #base case, runs through first profile
     login()
