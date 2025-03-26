@@ -70,7 +70,7 @@ def extract_data(profile_url):
     name = soup.find('div', class_="jGartttxmtrDzkrUUMcDSSWGJxlJixOGnZIHk") #name element
     headline = soup.find('div', class_="text-body-medium break-words") #headline element
     description = soup.find('div', class_="RinVMSOWRtYXwYvTNDaswJSYyXBbKjzFFUWQ full-width t-14 t-normal t-black display-flex align-items-center") #description element
-    #note that there may be weird characters needs to be cleaned
+    #note that there may be weird characters needs to be cleaned -> clean_data method
     
     #open & parse skills tab
     open_profile_and_scroll(profile_url + "details/skills/")
@@ -90,7 +90,7 @@ def clean_data(data):
     cleaned_data = ""
     for dataItem in data:
         dataItem = re.sub(r'[\n\t]+', ' ', dataItem)
-        dataItem = re.sub(r'[^a-zA-Z0-9 ]', '', dataItem)
+        dataItem = re.sub(r'[^a-zA-Z ]', '', dataItem)
         cleaned_data += dataItem
     return cleaned_data
 
