@@ -9,6 +9,7 @@ from bs4 import BeautifulSoup
 import requests
 import os
 import time
+import re
 
 load_dotenv()
 
@@ -86,7 +87,13 @@ def extract_data(profile_url):
 
 def clean_data(data):
     #remove any unwanted characters/info from data and make it all a string
-    pass
+    cleaned_data = ""
+    for dataItem in data:
+        dataItem = dataItem.replace("\n", " ")
+        dataItem = dataItem.replace("\t", " ")
+        dataItem = re.sub(r'[^a-zA-Z0-9 ]', '', dataItem)
+        cleaned_data += dataItem
+    return cleaned_data
 
 #@param data: string
 #@return list of strings
@@ -113,6 +120,9 @@ def get_new_profiles(count):
     #initialize array of profiles -> get all profiles on the right and add to array -> open each profile and scroll -> get new profiles -> repeat count time
     
 if __name__ == "__main__":
+    #write tests for clean data:
+    
+    
     #base case, runs through first profile
     login()
     open_profile_and_scroll("https://www.linkedin.com/in/adam-elsayed-9b0162245/")
