@@ -160,6 +160,22 @@ if __name__ == "__main__":
     8. Take matched keywords and add to database
     '''
     
+    test_data = [
+        ["Accessibility", "Random Text", "Alt Text", "Not a keyword"],
+        ["Accessibility!", "Screen\tReader\n", "Alt-Text"],
+        ["Random Text", "Another Random String"],
+        ["Accessibility", "accessibility", "Screen Reader", "screen reader"],
+    ]
+
+    for i, data in enumerate(test_data):
+        print(f"Test Case {i + 1}:")
+        print(f"Input: {data}")
+        print(f"Output: {clean_data(data)}")
+        print("-" * 50)
+    
+    '''
+    
+    
     login()
     open_profile_and_scroll("https://www.linkedin.com/in/adam-elsayed-9b0162245/")
     profiles = get_new_profiles(10) 
@@ -171,4 +187,6 @@ if __name__ == "__main__":
         skills = extract_skills(profile) #returns array of skills
         skills = clean_data(skills) #Take skills and remove anything that's not one of the ACCESSIBILITY_KEYWORDS
         #TODO: add name, job_title, and accessibility skills to database and anti-bot detection
+        
+    '''
         
