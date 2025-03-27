@@ -96,6 +96,7 @@ def extract_job_title():
                     return title
     #maybe change to a try-catch?
 
+'''
 def extract_data(profile_url):
     source = driver.page_source #get source code of loaded page
     soup = BeautifulSoup(source, "html.parser") #parse source code with BS4 and default parser
@@ -117,6 +118,11 @@ def extract_data(profile_url):
     else:
         return [name.get_text(strip=True), headline.get_text(strip=True), description.get_text(strip=True), skills.get_text(strip=True)]
     #maybe change to a try-catch?
+    
+'''
+
+def extract_skills(profile_url):
+    pass
 
 def clean_data(data):
     #remove any unwanted characters/info from data and make it all a string
@@ -171,4 +177,5 @@ if __name__ == "__main__":
         job_title = extract_job_title(profile)
         if job_title == "":
             continue
-        skills = extract_skills(profile)
+        skills = extract_skills(profile) #returns array of skills
+        
