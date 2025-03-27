@@ -125,7 +125,7 @@ def extract_skills(profile_url):
     pass
 
 def clean_data(data):
-    #remove any unwanted characters/info from data and make it all a string
+    #TODO: remove anything that's not in the ACCESSIBILITY_KEYWORDS
     cleaned_data = ""
     for dataItem in data:
         dataItem = re.sub(r'[\n\t]+', ' ', dataItem)
@@ -178,4 +178,6 @@ if __name__ == "__main__":
         if job_title == "":
             continue
         skills = extract_skills(profile) #returns array of skills
+        skills = clean_data(skills) #Take skills and remove anything that's not one of the ACCESSIBILITY_KEYWORDS
+        #TODO: add name, job_title, and accessibility skills to database
         
