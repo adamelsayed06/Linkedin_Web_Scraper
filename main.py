@@ -127,12 +127,6 @@ def clean_data(data):
         cleaned_data += dataItem
     return cleaned_data
 
-#@param data: string
-#@return list of strings
-def extract_keywords(data):
-    #TODO: rewrite with fuzzy search instead of spacy -- don't just want exact matches
-    pass
-
 #returns lists of new profiles to loop through
 def get_new_profiles(count):
     profiles = []
@@ -177,4 +171,4 @@ if __name__ == "__main__":
         job_title = extract_job_title(profile)
         if job_title == "":
             continue
-        
+        skills = extract_skills(profile)
