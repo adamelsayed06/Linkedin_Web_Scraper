@@ -113,13 +113,18 @@ def extract_skills(profile_url):
     '''
     pass
 
-#TODO: remove anything that's not in the ACCESSIBILITY_KEYWORDS
+#TODO: test
 def clean_data(data):
-    cleaned_data = ""
-    for dataItem in data:
+    cleaned_data = []
+    for dataItem in data: #['accessibility', 'nope']
         dataItem = re.sub(r'[\n\t]+', ' ', dataItem)
-        dataItem = re.sub(r'[^a-zA-Z ]', '', dataItem)
-        cleaned_data += dataItem
+        dataItem = re.sub(r'[^a-zA-Z ]', '', dataItem).strip().lower()
+        
+        for keyword in ACCESSIBILITY_KEYWORDS:
+            if keyword.lower() in dataItem:
+                cleaned_data.append(dataItem)
+                break #avoid duplicates
+    cleaned_data = list(set(cleaned_data)) #remove duplicates 
     return cleaned_data
 
 #returns lists of new profiles to loop through
