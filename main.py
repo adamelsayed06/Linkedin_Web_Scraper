@@ -15,7 +15,7 @@ load_dotenv()
 
 USERNAME = os.getenv("LINKEDIN_USERNAME")
 PASSWORD = os.getenv("LINKEDIN_PASSWORD")
-AACCESSIBILITY_KEYWORDS = {
+ACCESSIBILITY_KEYWORDS = {
     "accessibility", "a11y", "wcag", "screen reader", "assistive technology",
     "inclusive design", "universal design", "alt text", "aria", "captioning",
     "closed captions", "color contrast", "cognitive accessibility",
