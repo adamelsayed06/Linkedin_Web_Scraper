@@ -15,7 +15,7 @@ load_dotenv()
 
 USERNAME = os.getenv("LINKEDIN_USERNAME")
 PASSWORD = os.getenv("LINKEDIN_PASSWORD")
-ACCESSIBILITY_KEYWORDS = {
+AACCESSIBILITY_KEYWORDS = {
     "accessibility", "a11y", "wcag", "screen reader", "assistive technology",
     "inclusive design", "universal design", "alt text", "aria", "captioning",
     "closed captions", "color contrast", "cognitive accessibility",
@@ -26,7 +26,10 @@ ACCESSIBILITY_KEYWORDS = {
     "usability expert", "voiceover", "JAWS", "NVDA", "TalkBack", "braille displays",
     "semantic HTML", "keyboard navigation", "digital equality", "assistive UX",
     "social model of disability", "equity and accessibility", "neurodiversity", 
-    "human-centered design", "empathy-driven design", "barrier-free access"
+    "human-centered design", "empathy-driven design", "barrier-free access",
+    "IAAP Certified", "Section 508", "Trusted Tester", 
+    "European Accessibility Act (EAA) Compliance", "PDF remediation", 
+    "A11y audits", "Accessibility SME (Subject matter expert)"
 }
 
 # auto install chrome driver
