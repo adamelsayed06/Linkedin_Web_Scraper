@@ -98,33 +98,16 @@ def extract_job_title():
                     return title
     #maybe change to a try-catch?
 
-'''
-def extract_data(profile_url):
-    source = driver.page_source #get source code of loaded page
-    soup = BeautifulSoup(source, "html.parser") #parse source code with BS4 and default parser
-    
-    name = soup.find('div', class_="jGartttxmtrDzkrUUMcDSSWGJxlJixOGnZIHk") #name element
-    headline = soup.find('div', class_="text-body-medium break-words") #headline element
-    description = soup.find('div', class_="RinVMSOWRtYXwYvTNDaswJSYyXBbKjzFFUWQ full-width t-14 t-normal t-black display-flex align-items-center") #description element
-    #note that there may be weird characters needs to be cleaned -> clean_data method
-    
-    #open & parse skills tab
-    open_profile_and_scroll(profile_url + "details/skills/")
-    source = driver.page_source 
-    soup = BeautifulSoup(source, "html.parser")
-    skills = soup.find('ul', class_="JqmyCNHukZleLyGJMVErdOZaZFoDArjDs") 
-    #remove numbers and word endorsemenets, keep places of employment/titles could give info for accessibility skills
-
-    if headline or description or name or skills is None:
-        return "ERROR"
-    else:
-        return [name.get_text(strip=True), headline.get_text(strip=True), description.get_text(strip=True), skills.get_text(strip=True)]
-    #maybe change to a try-catch?
-    
-'''
 
 #TODO: implement
 def extract_skills(profile_url):
+    
+    '''REFERENCE
+    open_profile_and_scroll(profile_url + "details/skills/")
+    source = driver.page_source 
+    soup = BeautifulSoup(source, "html.parser")
+    skills = soup.find('ul', class_="JqmyCNHukZleLyGJMVErdOZaZFoDArjDs")
+    '''
     pass
 
 #TODO: remove anything that's not in the ACCESSIBILITY_KEYWORDS
