@@ -69,19 +69,27 @@ def extract_name(profile_url):
 
 def extract_job_title(profile_url):
     #return "" if no job title found or the job title we find isn't one we're looking for
-    #else 
+    #else return job title
     source = driver.page_source 
     soup = BeautifulSoup(source, "html.parser") 
+    
+    desired_titles = ["Web Developer", "UX Designer", "UI Designer", "Software Engineer", "Software Developer", "Front End Developer", "UIUX Accessibility", "Software Accessibility", "Accessibility Tester"]
     
     headline = soup.find()
     most_recent_job = soup.find()
     
-    if(headline is None or most_recent_job is None):
-        return 
-    if headline is None:
-        return "ERROR"
-    else:
-        return headline.get_text(strip=True)
+    #job not found or not in desired titles
+    if(headline is None or most_recent_job is None or headline not in desired_titles or most_recent_job not in desired_titles):
+        return ""
+    else: #return desired title
+        if headline in desired_titles:
+            for title in desired_titles:
+                if title in headline:
+                    return title
+        elif most_recent_job in desired_titles:
+            for title in desired_titles:
+                if title in most_recent_job:
+                    return title
     #maybe change to a try-catch?
 
 def extract_data(profile_url):
