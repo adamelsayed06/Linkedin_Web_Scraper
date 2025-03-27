@@ -63,6 +63,27 @@ def open_profile_and_scroll(profile_url):
     while time.time() - start < 5: #scrolls for 5 seconds
         driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
 
+def extract_name(profile_url):
+    source = driver.page_source 
+    soup = BeautifulSoup(source, "html.parser") 
+
+def extract_job_title(profile_url):
+    #return "" if no job title found or the job title we find isn't one we're looking for
+    #else 
+    source = driver.page_source 
+    soup = BeautifulSoup(source, "html.parser") 
+    
+    headline = soup.find()
+    most_recent_job = soup.find()
+    
+    if(headline is None or most_recent_job is None):
+        return 
+    if headline is None:
+        return "ERROR"
+    else:
+        return headline.get_text(strip=True)
+    #maybe change to a try-catch?
+
 def extract_data(profile_url):
     source = driver.page_source #get source code of loaded page
     soup = BeautifulSoup(source, "html.parser") #parse source code with BS4 and default parser
@@ -119,6 +140,18 @@ def get_new_profiles(count):
     #initialize array of profiles -> get all profiles on the right and add to array -> open each profile and scroll -> get new profiles -> repeat count time
     
 if __name__ == "__main__":
+    '''
+    main flow:
+    1. login to linkedin --  login()
+    2. get list of profiles -- get_new_profiles()
+    3. open each profile and scroll to bottom -- open_profile_and_scroll()
+    4. extract headline & most recent job title
+    5. categorize into one of the following titles:  
+    Web Developer, UX Designer, UI Designer, Software Engineer, Software Developer, Front End Developer, UIUX Accessibility, Software Accessibility, and Accessibility Tester
+    6. Extract skills from profile
+    7. Compare keywords for matches in ACCESSIBILITY_KEYWORDS
+    8. Take matched keywords and add to database
+    '''
     #TODO: test get new profiles, write extract keyword function w/fuzzy, and add name + keywords to postgres
     #TODO: error handling, and open multiple elements at once, and anti-bot detection
     
