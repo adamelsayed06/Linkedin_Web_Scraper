@@ -62,25 +62,27 @@ def open_profile_and_scroll(profile_url):
     while time.time() - start < 5: #scrolls for 5 seconds
         driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
 
+#TODO: find element name
 def extract_name():
     source = driver.page_source 
     soup = BeautifulSoup(source, "html.parser") 
     
-    name = soup.find() #TODO: find element name
+    name = soup.find('div', class_="jGartttxmtrDzkrUUMcDSSWGJxlJixOGnZIHk")
     
     return name.get_text(strip=True)
 
+#TODO: find specific element names
 def extract_job_title():
-    #return "" if no job title found or the job title we find isn't one we're looking for
-    #else return job title
     source = driver.page_source 
     soup = BeautifulSoup(source, "html.parser") 
     
     desired_titles = ["Web Developer", "UX Designer", "UI Designer", "Software Engineer", "Software Developer", "Front End Developer", "UIUX Accessibility", "Software Accessibility", "Accessibility Tester"]
     
-    #TODO: find specific element names
-    headline = soup.find()
+    headline = soup.find('div', class_="text-body-medium break-words")
     most_recent_job = soup.find()
+    
+    headline = headline.get_text(strip=True)
+    most_recent_job = most_recent_job.get_text(strip=True)
     
     #job not found or not in desired titles
     if(headline is None or most_recent_job is None or headline not in desired_titles or most_recent_job not in desired_titles):
@@ -121,11 +123,12 @@ def extract_data(profile_url):
     
 '''
 
+#TODO: implement
 def extract_skills(profile_url):
     pass
 
+#TODO: remove anything that's not in the ACCESSIBILITY_KEYWORDS
 def clean_data(data):
-    #TODO: remove anything that's not in the ACCESSIBILITY_KEYWORDS
     cleaned_data = ""
     for dataItem in data:
         dataItem = re.sub(r'[\n\t]+', ' ', dataItem)
@@ -151,7 +154,6 @@ def get_new_profiles(count):
         open_profile_and_scroll(a_tag['href']) #only scrolls last element -> potential optimization
        
     return profiles
-    #initialize array of profiles -> get all profiles on the right and add to array -> open each profile and scroll -> get new profiles -> repeat count time
     
 if __name__ == "__main__":
     '''
@@ -166,8 +168,6 @@ if __name__ == "__main__":
     7. Compare keywords for matches in ACCESSIBILITY_KEYWORDS
     8. Take matched keywords and add to database
     '''
-    #TODO: test get new profiles, write extract keyword function w/fuzzy, and add name + keywords to postgres
-    #TODO: error handling, and open multiple elements at once, and anti-bot detection
     
     login()
     open_profile_and_scroll("https://www.linkedin.com/in/adam-elsayed-9b0162245/")
@@ -179,5 +179,5 @@ if __name__ == "__main__":
             continue
         skills = extract_skills(profile) #returns array of skills
         skills = clean_data(skills) #Take skills and remove anything that's not one of the ACCESSIBILITY_KEYWORDS
-        #TODO: add name, job_title, and accessibility skills to database
+        #TODO: add name, job_title, and accessibility skills to database and anti-bot detection
         
