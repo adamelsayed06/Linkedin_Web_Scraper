@@ -62,22 +62,21 @@ def open_profile_and_scroll(profile_url):
     while time.time() - start < 5: #scrolls for 5 seconds
         driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
 
-def extract_name(profile_url):
+def extract_name():
     source = driver.page_source 
     soup = BeautifulSoup(source, "html.parser") 
     
-    name = soup.find()
+    name = soup.find() #TODO: find element name
     
     return name.get_text(strip=True)
 
-def extract_job_title(profile_url):
+def extract_job_title():
     #return "" if no job title found or the job title we find isn't one we're looking for
     #else return job title
     source = driver.page_source 
     soup = BeautifulSoup(source, "html.parser") 
     
     desired_titles = ["Web Developer", "UX Designer", "UI Designer", "Software Engineer", "Software Developer", "Front End Developer", "UIUX Accessibility", "Software Accessibility", "Accessibility Tester"]
-    
     
     #TODO: find specific element names
     headline = soup.find()
@@ -134,6 +133,7 @@ def extract_keywords(data):
     #TODO: rewrite with fuzzy search instead of spacy -- don't just want exact matches
     pass
 
+#returns lists of new profiles to loop through
 def get_new_profiles(count):
     profiles = []
     
@@ -149,7 +149,8 @@ def get_new_profiles(count):
             else:
                 print("ERROR: No a tag found")
         open_profile_and_scroll(a_tag['href']) #only scrolls last element -> potential optimization
-        
+       
+    return profiles
     #initialize array of profiles -> get all profiles on the right and add to array -> open each profile and scroll -> get new profiles -> repeat count time
     
 if __name__ == "__main__":
@@ -172,7 +173,8 @@ if __name__ == "__main__":
     open_profile_and_scroll("https://www.linkedin.com/in/adam-elsayed-9b0162245/")
     profiles = get_new_profiles(10) 
     for profile in profiles:
-        data = extract_data(profile)
-        cleaned_data = clean_data(data)
-        keywords = extract_keywords(cleaned_data)
-        #add name + keywords to postgres database
+        name = extract_name(profile)
+        job_title = extract_job_title(profile)
+        if job_title == "":
+            continue
+        
