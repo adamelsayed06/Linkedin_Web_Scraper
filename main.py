@@ -36,7 +36,6 @@ chrome_opts.add_experimental_option("detach", True)
 service = Service(ChromeDriverManager().install())
 driver = webdriver.Chrome(service=service, options=chrome_opts)
 
-
 def login():
     driver.get("https://www.linkedin.com/login")
 
@@ -66,6 +65,10 @@ def open_profile_and_scroll(profile_url):
 def extract_name(profile_url):
     source = driver.page_source 
     soup = BeautifulSoup(source, "html.parser") 
+    
+    name = soup.find()
+    
+    return name.get_text(strip=True)
 
 def extract_job_title(profile_url):
     #return "" if no job title found or the job title we find isn't one we're looking for
@@ -75,6 +78,8 @@ def extract_job_title(profile_url):
     
     desired_titles = ["Web Developer", "UX Designer", "UI Designer", "Software Engineer", "Software Developer", "Front End Developer", "UIUX Accessibility", "Software Accessibility", "Accessibility Tester"]
     
+    
+    #TODO: find specific element names
     headline = soup.find()
     most_recent_job = soup.find()
     
