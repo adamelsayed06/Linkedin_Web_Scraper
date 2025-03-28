@@ -204,38 +204,47 @@ def add_user_to_database(connection, name, job_title, skills):
     finally:
         curr.close()
 
-
-if __name__ == "__main__":
-    '''
-    main flow:
-    1. login to linkedin --  login()
-    2. get list of profiles -- get_new_profiles()
-    3. open each profile and scroll to bottom -- open_profile_and_scroll()
-    4. extract headline & most recent job title
-    5. categorize into one of the following titles:  
-    Web Developer, UX Designer, UI Designer, Software Engineer, Software Developer, Front End Developer, UIUX Accessibility, Software Accessibility, and Accessibility Tester
-    6. Extract skills from profile
-    7. Compare keywords for matches in ACCESSIBILITY_KEYWORDS
-    8. Take matched keywords and add to database
-    '''
-    
+def main():
     connection = connect_to_database()
-    if connection:
+    if not connection:
+        print("Error connecting to the database. Exiting...")
+        return
+
+    try:
         create_table(connection)
         login()
-        open_profile_and_scroll("https://www.linkedin.com/in/adam-elsayed-9b0162245/")
-        profiles = get_new_profiles(10) 
+        profiles = get_new_profiles(10)
         for profile in profiles:
+            open_profile_and_scroll(profile)
             name = extract_name(profile)
             job_title = extract_job_title(profile)
-            if job_title == "":
+            if not job_title:
                 continue
-            skills = extract_skills(profile) #returns array of skills
-            skills = clean_data(skills) #Take skills and remove anything that's not one of the ACCESSIBILITY_KEYWORDS
+            skills = extract_skills(profile)
+            skills = clean_data(skills)
             add_user_to_database(connection, name, job_title, skills)
-            #TODO: anti-bot detection
-    else:
-        print("Error connecting to the database. Exiting...")
-    connection.close()
-    driver.quit()
+    except Exception as e:
+        print(f"An error occurred: {e}")
+    finally:
+        connection.close()
+        driver.quit()
+
+if __name__ == "__main__":
+    main()
+    
+    
+'''
+main flow:
+1. login to linkedin --  login()
+2. get list of profiles -- get_new_profiles()
+3. open each profile and scroll to bottom -- open_profile_and_scroll()
+4. extract headline & most recent job title
+5. categorize into one of the following titles:  
+Web Developer, UX Designer, UI Designer, Software Engineer, Software Developer, Front End Developer, UIUX Accessibility, Software Accessibility, and Accessibility Tester
+6. Extract skills from profile
+7. Compare keywords for matches in ACCESSIBILITY_KEYWORDS
+8. Take matched keywords and add to database
+'''
+    
+    
         
