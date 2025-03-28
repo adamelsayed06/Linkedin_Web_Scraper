@@ -230,6 +230,7 @@ if __name__ == "__main__":
                 continue
             skills = extract_skills(profile) #returns array of skills
             skills = clean_data(skills) #Take skills and remove anything that's not one of the ACCESSIBILITY_KEYWORDS
+            add_user_to_database(connection, name, job_title, skills)
             #TODO: add name, job_title, and accessibility skills to database and anti-bot detection
     else:
         print("Error connecting to the database. Exiting...")
