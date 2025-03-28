@@ -217,15 +217,21 @@ if __name__ == "__main__":
     8. Take matched keywords and add to database
     '''
     
-    login()
-    open_profile_and_scroll("https://www.linkedin.com/in/adam-elsayed-9b0162245/")
-    profiles = get_new_profiles(10) 
-    for profile in profiles:
-        name = extract_name(profile)
-        job_title = extract_job_title(profile)
-        if job_title == "":
-            continue
-        skills = extract_skills(profile) #returns array of skills
-        skills = clean_data(skills) #Take skills and remove anything that's not one of the ACCESSIBILITY_KEYWORDS
-        #TODO: add name, job_title, and accessibility skills to database and anti-bot detection
+    connection = connect_to_database()
+    if connection:
+        create_table(connection)
+        login()
+        open_profile_and_scroll("https://www.linkedin.com/in/adam-elsayed-9b0162245/")
+        profiles = get_new_profiles(10) 
+        for profile in profiles:
+            name = extract_name(profile)
+            job_title = extract_job_title(profile)
+            if job_title == "":
+                continue
+            skills = extract_skills(profile) #returns array of skills
+            skills = clean_data(skills) #Take skills and remove anything that's not one of the ACCESSIBILITY_KEYWORDS
+            #TODO: add name, job_title, and accessibility skills to database and anti-bot detection
+    else:
+        print("Error connecting to the database. Exiting...")
+    driver.quit()
         
