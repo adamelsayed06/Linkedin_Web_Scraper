@@ -150,7 +150,24 @@ def get_new_profiles(count):
         open_profile_and_scroll(a_tag['href']) #only scrolls last element -> potential optimization
        
     return profiles
-    
+
+#TODO: test database connection
+def connect_to_database():
+    try:
+        # Establish connection to the PostgreSQL database
+        connection = psycopg2.connect(
+            dbname=DB_NAME,
+            user=DB_USER,
+            password=DB_PASSWORD,
+            host=DB_HOST,
+            port=DB_PORT
+        )
+        print("Database connection successful!")
+        return connection
+    except psycopg2.Error as e:
+        print(f"Error connecting to the database: {e}")
+        return None
+
 if __name__ == "__main__":
     '''
     main flow:
