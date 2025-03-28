@@ -187,6 +187,21 @@ def create_table(connection):
     finally:
         curr.close()
 
+def add_user_to_database(connection, name, job_title, skills):
+    try:
+        curr = connection.cursor()
+        insert_query = '''
+        INSERT INTO accessibility_profiles (name, job_title, skills)
+        VALUES (%s, %s, %s);
+        '''
+        curr.execute(insert_query, (name, job_title, skills))
+        connection.commit()
+        print(f"User '{name}' added to the database.")
+    except psycopg2.Error as e:
+        print(f"Error adding user to the database: {e}")
+    finally:
+        curr.close()
+
 
 if __name__ == "__main__":
     '''
