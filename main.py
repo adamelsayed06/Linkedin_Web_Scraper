@@ -168,6 +168,26 @@ def connect_to_database():
         print(f"Error connecting to the database: {e}")
         return None
 
+def create_table(connection):
+    try:
+        curr = connection.cursor()
+        create_table_query = '''
+        CREATE TABLE IF NOT EXISTS accessibility_profiles (
+            id SERIAL PRIMARY KEY,
+            name VARCHAR(255),
+            job_title VARCHAR(255),
+            skills TEXT[]
+        );
+        '''
+        curr.execute(create_table_query)
+        connection.commit()
+        print("Table 'accessibility_profiles' created or already exists.")
+    except psycopg2.Error as e:
+        print(f"Error creating table: {e}")
+    finally:
+        curr.close()
+
+
 if __name__ == "__main__":
     '''
     main flow:
@@ -193,6 +213,4 @@ if __name__ == "__main__":
         skills = extract_skills(profile) #returns array of skills
         skills = clean_data(skills) #Take skills and remove anything that's not one of the ACCESSIBILITY_KEYWORDS
         #TODO: add name, job_title, and accessibility skills to database and anti-bot detection
-        
-    
         
