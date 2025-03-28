@@ -10,6 +10,7 @@ import requests
 import os
 import time
 import re
+import psycopg2
 
 load_dotenv()
 

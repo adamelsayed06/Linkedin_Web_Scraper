@@ -3,3 +3,4 @@ bs4
 webdriver-manager
 python-dotenv
 requests
+psycopg2-binary
