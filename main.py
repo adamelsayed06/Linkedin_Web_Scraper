@@ -168,6 +168,7 @@ def connect_to_database():
         print(f"Error connecting to the database: {e}")
         return None
 
+#TODO: test table creation
 def create_table(connection):
     try:
         curr = connection.cursor()
@@ -187,6 +188,7 @@ def create_table(connection):
     finally:
         curr.close()
 
+#TODO: test adding user to database
 def add_user_to_database(connection, name, job_title, skills):
     try:
         curr = connection.cursor()
