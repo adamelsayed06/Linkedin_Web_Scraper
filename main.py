@@ -6,7 +6,6 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from dotenv import load_dotenv
 from bs4 import BeautifulSoup
-import requests
 import os
 import time
 import re
