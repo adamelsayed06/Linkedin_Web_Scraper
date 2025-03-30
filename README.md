@@ -1,5 +1,5 @@
 # Linkedin Accessibility Web Scraper
-- Short Description / background goes here
+- Web scraper designed to analyze LinkedIn profiles and compare the accessibility skills on the profiles of general software professionals and dedicated accessibility experts. The inspiration for this project comes from Martin 2022 which analyzed similar trends but for job postings instead of professionals.
 ## Requirements
 - selenium
 - bs4
@@ -14,3 +14,6 @@
 - Professor Devorah Kletenik
 - Professor Rachel Adler
 - Professor Partha Sarathi
+
+## Acknowledgments
+- 
