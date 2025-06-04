@@ -156,6 +156,9 @@ def add_to_json(filename, profile_data):
     with open(filename, "r+") as file: # open file in read and write mode
         try:
             data = json.load(file) # load existing data
+            data.append(profile_data) # append new profile data
+            file.seek(0) # move the cursor to the beginning of the file to prevent corruption
+            json.dump(data, file, indent=4) # write updated data back to file
         except Exception as e:
             print(f"Error loading JSON file: {e}")
             data = []
