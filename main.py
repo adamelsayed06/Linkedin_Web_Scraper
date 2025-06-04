@@ -48,7 +48,6 @@ def login():
     time.sleep(2)
 
     password = driver.find_element(By.ID, "password") # <input id="password"> on linkedin website, searches for this tag
-    password.send_keys(PASSWORD) # enters password
     
     time.sleep(2)
 
