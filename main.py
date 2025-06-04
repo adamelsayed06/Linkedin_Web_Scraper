@@ -155,13 +155,23 @@ def main():
         name = extract_name()
         job_title = extract_job_title()
         if isSoftwareProfessional(job_title):
-            time.sleep(0)
             skills = extract_skills(profile) #MAKE SURE TO CLEAN DATA
-            #add to software professionals JSON
+
+            profile_data = {
+                "name": name,
+                "job_title": job_title,
+                "skills": clean_data(skills)
+            }
+
+            add_to_json("software_professionals.json", profile_data) #add to software professionals JSON
         elif isAccessibilityProfessional(job_title):
-            time.sleep(0)
             skills = extract_skills(profile) #MAKE SURE TO CLEAN DATA
-            #add to accessibility professionals JSON
+            profile_data = {
+                "name": name,
+                "job_title": job_title,
+                "skills": clean_data(skills)
+            }
+            add_to_json("accessibility_professionals.json", profile_data) #add to accessibility professionals JSON
         else:
             continue
         
