@@ -5,7 +5,6 @@ Web scraper designed to analyze LinkedIn profiles and compare the accessibility 
 - bs4
 - webdriver-manager
 - python-dotenv
-- psycopg2-binary
 ## Installation
 - mimic on your machine
 ## How it Works
