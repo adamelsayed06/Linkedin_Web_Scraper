@@ -154,7 +154,19 @@ def main():
         open_profile_and_scroll(profile)
         name = extract_name()
         job_title = extract_job_title()
-        skills = extract_skills(profile)
+        if isSoftwareProfessional(job_title):
+            time.sleep(0)
+            skills = extract_skills(profile) #MAKE SURE TO CLEAN DATA
+            #add to software professionals JSON
+        elif isAccessibilityProfessional(job_title):
+            time.sleep(0)
+            skills = extract_skills(profile) #MAKE SURE TO CLEAN DATA
+            #add to accessibility professionals JSON
+        else:
+            continue
+        
+        
+
 
 
 if __name__ == "__main__":
