@@ -146,7 +146,16 @@ def get_new_profiles(count):
     return profiles
 
 def main():
-    return None
+    ROOT_URL = "" #PLACEHOLDER
+    login()
+    open_profile_and_scroll(ROOT_URL)
+    profiles = get_new_profiles(1000)
+    for profile in profiles:
+        open_profile_and_scroll(profile)
+        name = extract_name()
+        job_title = extract_job_title()
+        skills = extract_skills(profile)
+
 
 if __name__ == "__main__":
     main()
