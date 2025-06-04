@@ -158,11 +158,11 @@ main flow:
 2. get list of profiles -- get_new_profiles()
 3. open each profile and scroll to bottom -- open_profile_and_scroll()
 4. extract headline & most recent job title
-5. categorize into one of the following titles:  
+5. Based on titles they are either accessibility or software professionals, so categorize:  
 Web Developer, UX Designer, UI Designer, Software Engineer, Software Developer, Front End Developer, UIUX Accessibility, Software Accessibility, and Accessibility Tester
 6. Extract skills from profile
-7. Compare keywords for matches in ACCESSIBILITY_KEYWORDS
-8. Take matched keywords and add to database
+7. Add skills to JSON
+8. Compare to ACCESSIBILITY_KEYWORDS
 '''
     
     
