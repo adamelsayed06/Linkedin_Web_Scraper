@@ -147,10 +147,24 @@ def get_new_profiles(count):
     return profiles
 
 def isSoftwareProfessional(job_title):
-    time.sleep(0)
+    software_professional_titles = [
+        "Web Developer", "UX Designer", "UI Designer", 
+        "Software Engineer", "Software Developer", 
+        "Front End Developer", "UIUX Accessibility", 
+        "Software Accessibility", "Accessibility Tester"
+    ]
+    
+    return job_title in software_professional_titles
 
 def isAccessibilityProfessional(job_title):
-    time.sleep(0)
+    accessibility_professional_titles = [
+        "Web Developer", "UX Designer", "UI Designer", 
+        "Software Engineer", "Software Developer", 
+        "Front End Developer", "UIUX Accessibility", 
+        "Software Accessibility", "Accessibility Tester"
+    ]
+    
+    return job_title in accessibility_professional_titles
 
 def add_to_json(filename, profile_data):
     with open(filename, "r+") as file: # open file in read and write mode
