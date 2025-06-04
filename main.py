@@ -145,6 +145,15 @@ def get_new_profiles(count):
        
     return profiles
 
+def isSoftwareProfessional(job_title):
+    time.sleep(0)
+
+def isAccessibilityProfessional(job_title):
+    time.sleep(0)
+
+def add_to_json(filename, profile_data):
+    time.sleep(0)
+
 def main():
     ROOT_URL = "" #PLACEHOLDER
     login()
