@@ -9,17 +9,9 @@ from bs4 import BeautifulSoup
 import os
 import time
 import re
-import psycopg2
 
 load_dotenv()
 
-DB_NAME = os.getenv("DB_NAME")
-DB_USER = os.getenv("DB_USER")
-DB_PASSWORD = os.getenv("DB_PASSWORD")
-DB_HOST = os.getenv("DB_HOST")
-DB_PORT = os.getenv("DB_PORT")
-USERNAME = os.getenv("LINKEDIN_USERNAME")
-PASSWORD = os.getenv("LINKEDIN_PASSWORD")
 ACCESSIBILITY_KEYWORDS = {
     "accessibility", "a11y", "wcag", "screen reader", "assistive technology",
     "inclusive design", "universal design", "alt text", "aria", "captioning",
@@ -50,7 +42,7 @@ def login():
     time.sleep(5) # wait for page to load 5s
 
     username = driver.find_element(By.ID, "username") # <input id="username"> on linkedin website, searches for this tag
-    username.send_keys(USERNAME) # enters username
+    
     
     time.sleep(2)
 
@@ -153,83 +145,8 @@ def get_new_profiles(count):
        
     return profiles
 
-#TODO: test database connection
-def connect_to_database():
-    try:
-        # Establish connection to the PostgreSQL database
-        connection = psycopg2.connect(
-            dbname=DB_NAME,
-            user=DB_USER,
-            password=DB_PASSWORD,
-            host=DB_HOST,
-            port=DB_PORT
-        )
-        print("Database connection successful!")
-        return connection
-    except psycopg2.Error as e:
-        print(f"Error connecting to the database: {e}")
-        return None
-
-#TODO: test table creation
-def create_table(connection):
-    try:
-        curr = connection.cursor()
-        create_table_query = '''
-        CREATE TABLE IF NOT EXISTS accessibility_profiles (
-            id SERIAL PRIMARY KEY,
-            name VARCHAR(255),
-            job_title VARCHAR(255),
-            skills TEXT[]
-        );
-        '''
-        curr.execute(create_table_query)
-        connection.commit()
-        print("Table 'accessibility_profiles' created or already exists.")
-    except psycopg2.Error as e:
-        print(f"Error creating table: {e}")
-    finally:
-        curr.close()
-
-#TODO: test adding user to database
-def add_user_to_database(connection, name, job_title, skills):
-    try:
-        curr = connection.cursor()
-        insert_query = '''
-        INSERT INTO accessibility_profiles (name, job_title, skills)
-        VALUES (%s, %s, %s);
-        '''
-        curr.execute(insert_query, (name, job_title, skills))
-        connection.commit()
-        print(f"User '{name}' added to the database.")
-    except psycopg2.Error as e:
-        print(f"Error adding user to the database: {e}")
-    finally:
-        curr.close()
-
 def main():
-    connection = connect_to_database()
-    if not connection:
-        print("Error connecting to the database. Exiting...")
-        return
-
-    try:
-        create_table(connection)
-        login()
-        profiles = get_new_profiles(10)
-        for profile in profiles:
-            open_profile_and_scroll(profile)
-            name = extract_name(profile)
-            job_title = extract_job_title(profile)
-            if not job_title:
-                continue
-            skills = extract_skills(profile)
-            skills = clean_data(skills)
-            add_user_to_database(connection, name, job_title, skills)
-    except Exception as e:
-        print(f"An error occurred: {e}")
-    finally:
-        connection.close()
-        driver.quit()
+    return None
 
 if __name__ == "__main__":
     main()
