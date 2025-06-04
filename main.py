@@ -9,6 +9,7 @@ from bs4 import BeautifulSoup
 import os
 import time
 import re
+import json
 
 load_dotenv()
 
@@ -152,7 +153,12 @@ def isAccessibilityProfessional(job_title):
     time.sleep(0)
 
 def add_to_json(filename, profile_data):
-    time.sleep(0)
+    with open(filename, "r+") as file: # open file in read and write mode
+        try:
+            data = json.load(file) # load existing data
+        except Exception as e:
+            print(f"Error loading JSON file: {e}")
+            data = []
 
 def main():
     ROOT_URL = "" #PLACEHOLDER
@@ -173,6 +179,7 @@ def main():
             }
 
             add_to_json("software_professionals.json", profile_data) #add to software professionals JSON
+        
         elif isAccessibilityProfessional(job_title):
             skills = extract_skills(profile) #MAKE SURE TO CLEAN DATA
             profile_data = {
@@ -181,6 +188,7 @@ def main():
                 "skills": clean_data(skills)
             }
             add_to_json("accessibility_professionals.json", profile_data) #add to accessibility professionals JSON
+        
         else:
             continue
         
