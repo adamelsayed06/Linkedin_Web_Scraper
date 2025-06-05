@@ -88,27 +88,18 @@ def extract_job_title():
     source = driver.page_source 
     soup = BeautifulSoup(source, "html.parser") 
     
-    desired_titles = ["Web Developer", "UX Designer", "UI Designer", "Software Engineer", "Software Developer", "Front End Developer", "UIUX Accessibility", "Software Accessibility", "Accessibility Tester"]
-    
     headline = soup.find('div', class_="text-body-medium break-words")
-    most_recent_job = soup.find()
+    # example: Data Engineering Intern @Stantec | Research Assistant @Brooklyn College
     
     headline = headline.get_text(strip=True)
-    most_recent_job = most_recent_job.get_text(strip=True)
     
     #job not found or not in desired titles
     try:
-        if(headline is None or most_recent_job is None or headline not in desired_titles or most_recent_job not in desired_titles):
+        if(headline is None or headline == ""):
+            print("ERROR: Headline not found or empty")
             return ""
         else: #return desired title
-            if headline in desired_titles:
-                for title in desired_titles:
-                    if title in headline:
-                        return title
-            elif most_recent_job in desired_titles:
-                for title in desired_titles:
-                    if title in most_recent_job:
-                        return title
+            return headline
     except Exception as e:
         print(f"Error extracting job title: {e}")
         return ""
