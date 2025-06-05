@@ -142,7 +142,7 @@ def clean_data(data):
 '''
 
 #returns lists of new profiles to loop through, update class name
-def get_new_profiles(count):
+def get_new_accessibility_profiles(count):
     profiles = []
     
     for i in range(count):
@@ -160,6 +160,8 @@ def get_new_profiles(count):
        
     return profiles
 
+def get_new_software_profiles(count):
+    pass
 #tested, and working
 def isSoftwareProfessional(job_title):
     software_professional_titles = [
@@ -182,8 +184,7 @@ def isAccessibilityProfessional(job_title):
         
     return False
     
-
-#tested and working, just make sure we're converting profile_data to JSON format
+#tested and working, just make sure we're converting profile_data to proper JSON format
 def add_to_json(filename, profile_data):
     
     with open(filename, "r+") as file: # open file in read and write mode
