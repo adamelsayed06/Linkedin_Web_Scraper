@@ -150,42 +150,6 @@ def get_new_accessibility_profiles(count):
     '''
     profiles = []
     open_profile_and_scroll("https://www.linkedin.com/groups/4512178/members/")
-        
-    for _ in range(count):
-        source = driver.page_source 
-        soup = BeautifulSoup(source, "html.parser")
-        
-        start = time.time()
-        while time.time() - start < 5:  # Scrolls for 5 seconds
-            driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-        
-        # Find and click "See More Results" button if present
-        show_more_button = [] # code to find button 
-        
-        if show_more_button:
-            try:
-                print("button found")
-                show_more_button.click()
-                time.sleep(2)  # Wait for new profiles to load
-            except Exception as e:
-                print(f"Error clicking 'See More Results' button: {e}")
-        
-        # Find headlines and profile URLs
-        headlines = soup.find_all('div', class_=["artdeco-entity-lockup__subtitle", "ember-view"])
-        profile_urls = soup.find_all('a', class_=["ember-view", "ui-conditional-link-wrapper", "ui-entity-action-row__link"])
-        
-        if not headlines or not profile_urls:
-            print("No headlines or profile URLs found")
-            continue
-        
-        # Process profiles
-        for i in range(len(headlines)):
-            headline_text = headlines[i].get_text(strip=True)
-            profile_url = profile_urls[i]['href'] if 'href' in profile_urls[i].attrs else None
-            
-            if profile_url and isAccessibilityProfessional(headline_text):
-                if profile_url not in profiles:  # Avoid duplicates
-                    profiles.append(profile_url)  # Ensure only strings are added
     
     return profiles
 
