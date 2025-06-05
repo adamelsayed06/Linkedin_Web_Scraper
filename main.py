@@ -235,10 +235,14 @@ def main():
         
 if __name__ == "__main__":
     login()
-    open_profile_and_scroll("https://www.linkedin.com/in/adam-elsayed-9b0162245/")  # Replace with your LinkedIn profile URL
-    print(extract_name())
-    print(extract_job_title())
-    print(extract_skills("https://www.linkedin.com/in/adam-elsayed-9b0162245/"))  # Replace with your LinkedIn profile URL
+    ROOT_URL = "https://www.linkedin.com/in/adam-elsayed-9b0162245/"  # Replace with your LinkedIn profile URL
+    open_profile_and_scroll(ROOT_URL)
+    profiles = get_new_profiles(10)
+    for profile in profiles:
+        print(profile)
+        open_profile_and_scroll(profile)
+        name = extract_name()
+        print(name)
 '''
 main flow:
 1. login to linkedin --  login()
