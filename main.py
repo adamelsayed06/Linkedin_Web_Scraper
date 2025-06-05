@@ -82,6 +82,7 @@ def extract_name():
 '''
 Extracts headline from profile page, but still needs to be compared against
 accessibility and software professional titles, before being added to JSON
+tested and works
 '''
 def extract_job_title():
     source = driver.page_source 
@@ -223,6 +224,7 @@ if __name__ == "__main__":
     login()
     open_profile_and_scroll("https://www.linkedin.com/in/adam-elsayed-9b0162245/")  # Replace with your LinkedIn profile URL
     print(extract_name())
+    print(extract_job_title())
 '''
 main flow:
 1. login to linkedin --  login()
