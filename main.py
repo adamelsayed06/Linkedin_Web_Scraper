@@ -143,27 +143,57 @@ def clean_data(data):
 
 #returns lists of new profiles to loop through, update class name
 def get_new_accessibility_profiles(count):
+    '''
+    Have group URL of accessibility professionals, scroll through page and look for see more results button, if there click it
+    and scroll to bottom of page, then extract headlines and profile URLs, from the headline determines if they are accessibility professionals
+    and adds URL to list of profiles to return NOT WORKING YET
+    '''
     profiles = []
-    
-    for i in range(count):
+    open_profile_and_scroll("https://www.linkedin.com/groups/4512178/members/")
+        
+    for _ in range(count):
         source = driver.page_source 
         soup = BeautifulSoup(source, "html.parser")
-        divs = soup.find_all('div', class_="display-flex flex-row justify-space-between")
         
-        for div in divs:
-            a_tag = div.find('a')
-            if a_tag:
-                profiles.append(a_tag['href'])
-            else:
-                print("ERROR: No a tag found")
-        open_profile_and_scroll(a_tag['href']) #only scrolls last element -> potential optimization
-       
+        start = time.time()
+        while time.time() - start < 5:  # Scrolls for 5 seconds
+            driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+        
+        # Find and click "See More Results" button if present
+        show_more_button = [] # code to find button 
+        
+        if show_more_button:
+            try:
+                print("button found")
+                show_more_button.click()
+                time.sleep(2)  # Wait for new profiles to load
+            except Exception as e:
+                print(f"Error clicking 'See More Results' button: {e}")
+        
+        # Find headlines and profile URLs
+        headlines = soup.find_all('div', class_=["artdeco-entity-lockup__subtitle", "ember-view"])
+        profile_urls = soup.find_all('a', class_=["ember-view", "ui-conditional-link-wrapper", "ui-entity-action-row__link"])
+        
+        if not headlines or not profile_urls:
+            print("No headlines or profile URLs found")
+            continue
+        
+        # Process profiles
+        for i in range(len(headlines)):
+            headline_text = headlines[i].get_text(strip=True)
+            profile_url = profile_urls[i]['href'] if 'href' in profile_urls[i].attrs else None
+            
+            if profile_url and isAccessibilityProfessional(headline_text):
+                if profile_url not in profiles:  # Avoid duplicates
+                    profiles.append(profile_url)  # Ensure only strings are added
+    
     return profiles
 
 def get_new_software_profiles(count):
     pass
 #tested, and working
 def isSoftwareProfessional(job_title):
+    
     software_professional_titles = [
         "Web Developer", "UX Designer", "UI Designer", 
         "Software Engineer", "Software Developer", 
@@ -203,7 +233,6 @@ def main():
     ROOT_URL = "" #PLACEHOLDER
     login()
     open_profile_and_scroll(ROOT_URL)
-    profiles = get_new_profiles(1000)
     for profile in profiles:
         open_profile_and_scroll(profile)
         name = extract_name()
@@ -233,6 +262,9 @@ def main():
         
 if __name__ == "__main__":
     login()
+    print(get_new_accessibility_profiles(3))
+    '''
+    login()
     ROOT_URL = "https://www.linkedin.com/in/adam-elsayed-9b0162245/"  # Replace with your LinkedIn profile URL
     open_profile_and_scroll(ROOT_URL)
     profiles = get_new_profiles(10)
@@ -241,6 +273,7 @@ if __name__ == "__main__":
         open_profile_and_scroll(profile)
         name = extract_name()
         print(name)
+    '''
 '''
 main flow:
 1. login to linkedin --  login()
