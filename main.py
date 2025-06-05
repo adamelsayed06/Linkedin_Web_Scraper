@@ -176,15 +176,12 @@ def isSoftwareProfessional(job_title):
 
  # tested and working
 def isAccessibilityProfessional(job_title):
-    accessibility_professional_titles = [
-        "UIUX Accessibility", "Software Accessibility", 
-        "Accessibility Tester", "Accessibility Engineer", 
-        "Accessibility Specialist", "Digital Accessibility Expert", 
-        "ADA Compliance Officer", "Accessibility Consultant", 
-        "Assistive Technology Expert"
-    ]
+    for keyword in ACCESSIBILITY_KEYWORDS:
+        if keyword.lower() in job_title.lower():
+            return True
+        
+    return False
     
-    return job_title in accessibility_professional_titles
 
 #tested and working, just make sure we're converting profile_data to JSON format
 def add_to_json(filename, profile_data):
