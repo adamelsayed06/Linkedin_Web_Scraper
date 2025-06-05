@@ -37,21 +37,24 @@ chrome_opts.add_experimental_option("detach", True)
 service = Service(ChromeDriverManager().install())
 driver = webdriver.Chrome(service=service, options=chrome_opts)
 
+# tested and works
 def login():
     driver.get("https://www.linkedin.com/login")
 
     time.sleep(5) # wait for page to load 5s
 
     username = driver.find_element(By.ID, "username") # <input id="username"> on linkedin website, searches for this tag
-    
+    username.send_keys(os.getenv("LINKEDIN_USERNAME")) # sends your username to the input field
     time.sleep(2)
 
     password = driver.find_element(By.ID, "password") # <input id="password"> on linkedin website, searches for this tag
+    password.send_keys(os.getenv("LINKEDIN_PASSWORD")) # sends your password to the input field
     
     time.sleep(2)
 
     driver.find_element(By.XPATH, "//button[@type='submit']").click() #find button with type submit (login button) and clicks it
 
+# tested and works
 def open_profile_and_scroll(profile_url):
     driver.get(profile_url) # opens your profile
     time.sleep(5) # wait for page to load 5s
@@ -61,12 +64,14 @@ def open_profile_and_scroll(profile_url):
     while time.time() - start < 5: #scrolls for 5 seconds
         driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
 
-#TODO: update class name
+# tested and works
 def extract_name():
     source = driver.page_source 
     soup = BeautifulSoup(source, "html.parser") 
     
-    name = soup.find('div', class_="jGartttxmtrDzkrUUMcDSSWGJxlJixOGnZIHk")
+    # Search for the <h1> element with multiple classes
+    name = soup.find('h1', class_=["noXxUHDdDzsoAtzfoMtCjNImbKnWKSCtAsU", 
+                                   "inline", "t-24", "v-align-middle", "break-words"])
 
     if name is None:
         print("ERROR: Name element not found")
@@ -133,7 +138,7 @@ def clean_data(data):
     cleaned_data = list(set(cleaned_data)) #remove duplicates 
     return cleaned_data
 
-#returns lists of new profiles to loop through
+#returns lists of new profiles to loop through, update class name
 def get_new_profiles(count):
     profiles = []
     
@@ -165,7 +170,7 @@ def isSoftwareProfessional(job_title):
     
     return job_title in software_professional_titles
 
-# change names of accessibility professionals 
+ # tested and working
 def isAccessibilityProfessional(job_title):
     accessibility_professional_titles = [
         "UIUX Accessibility", "Software Accessibility", 
@@ -225,9 +230,9 @@ def main():
             continue
         
 if __name__ == "__main__":
-    add_to_json("software_professionals.json", [{"name": "placeholder", "job_title": "placeholder", "skills": ["placeholder"]}]) #initialize JSON file
-    
-    
+    login()
+    open_profile_and_scroll("https://www.linkedin.com/in/adam-elsayed-9b0162245/")  # Replace with your LinkedIn profile URL
+    print(extract_name())
 '''
 main flow:
 1. login to linkedin --  login()
