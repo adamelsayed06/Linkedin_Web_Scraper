@@ -104,7 +104,7 @@ def extract_job_title():
         print(f"Error extracting job title: {e}")
         return ""
 
-#works and tested
+ #works and tested
 def extract_skills(profile_url):
     # Navigate to the skills section of the profile
     open_profile_and_scroll(profile_url + "details/skills/")
@@ -126,6 +126,7 @@ def extract_skills(profile_url):
     
     return skills
 
+'''
 def clean_data(data):
     cleaned_data = []
     for dataItem in data: #['accessibility', 'nope']
@@ -138,6 +139,7 @@ def clean_data(data):
                 break #avoid duplicates
     cleaned_data = list(set(cleaned_data)) #remove duplicates 
     return cleaned_data
+'''
 
 #returns lists of new profiles to loop through, update class name
 def get_new_profiles(count):
@@ -166,7 +168,8 @@ def isSoftwareProfessional(job_title):
         "Front End Developer", "Backend Developer", 
         "Full Stack Developer", "Mobile App Developer", 
         "DevOps Engineer", "Data Scientist", 
-        "Machine Learning Engineer", "Cloud Engineer"
+        "Machine Learning Engineer", "Cloud Engineer", "Data Engineer",
+        "Software Architect", "SWE", "SDE", "ML Engineer"
     ]
     
     return job_title in software_professional_titles
@@ -247,6 +250,8 @@ Web Developer, UX Designer, UI Designer, Software Engineer, Software Developer, 
 6. Extract skills from profile
 7. Add skills to JSON
 8. Compare to ACCESSIBILITY_KEYWORDS
+
+TODO: test getting new profiles, 
 '''
 
 
