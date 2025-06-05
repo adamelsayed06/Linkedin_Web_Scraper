@@ -104,17 +104,27 @@ def extract_job_title():
         print(f"Error extracting job title: {e}")
         return ""
 
-
-#TODO: implement
+#works and tested
 def extract_skills(profile_url):
-    
-    '''REFERENCE
+    # Navigate to the skills section of the profile
     open_profile_and_scroll(profile_url + "details/skills/")
     source = driver.page_source 
     soup = BeautifulSoup(source, "html.parser")
-    skills = soup.find('ul', class_="JqmyCNHukZleLyGJMVErdOZaZFoDArjDs")
-    '''
-    pass
+    
+    # Find all <li> elements with the desired class
+    li_elements = soup.find_all('li', class_="pvs-list__paged-list-item artdeco-list__item pvs-list__item--line-separated pvs-list__item--one-column")
+    
+    skills = []
+    for li in li_elements:
+        # Find the <div> within the <li> element with the specific class
+        div = li.find('div', class_="display-flex flex-row justify-space-between")
+        if div:
+            skill_text = div.get_text(strip=True)
+            # Truncate the skill text to half its length
+            truncated_skill = skill_text[:len(skill_text) // 2]
+            skills.append(truncated_skill)
+    
+    return skills
 
 def clean_data(data):
     cleaned_data = []
@@ -225,6 +235,7 @@ if __name__ == "__main__":
     open_profile_and_scroll("https://www.linkedin.com/in/adam-elsayed-9b0162245/")  # Replace with your LinkedIn profile URL
     print(extract_name())
     print(extract_job_title())
+    print(extract_skills("https://www.linkedin.com/in/adam-elsayed-9b0162245/"))  # Replace with your LinkedIn profile URL
 '''
 main flow:
 1. login to linkedin --  login()
