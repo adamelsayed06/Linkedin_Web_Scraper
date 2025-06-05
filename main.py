@@ -157,8 +157,10 @@ def isSoftwareProfessional(job_title):
     software_professional_titles = [
         "Web Developer", "UX Designer", "UI Designer", 
         "Software Engineer", "Software Developer", 
-        "Front End Developer", "UIUX Accessibility", 
-        "Software Accessibility", "Accessibility Tester"
+        "Front End Developer", "Backend Developer", 
+        "Full Stack Developer", "Mobile App Developer", 
+        "DevOps Engineer", "Data Scientist", 
+        "Machine Learning Engineer", "Cloud Engineer"
     ]
     
     return job_title in software_professional_titles
@@ -166,15 +168,16 @@ def isSoftwareProfessional(job_title):
 # change names of accessibility professionals 
 def isAccessibilityProfessional(job_title):
     accessibility_professional_titles = [
-        "Web Developer", "UX Designer", "UI Designer", 
-        "Software Engineer", "Software Developer", 
-        "Front End Developer", "UIUX Accessibility", 
-        "Software Accessibility", "Accessibility Tester"
+        "UIUX Accessibility", "Software Accessibility", 
+        "Accessibility Tester", "Accessibility Engineer", 
+        "Accessibility Specialist", "Digital Accessibility Expert", 
+        "ADA Compliance Officer", "Accessibility Consultant", 
+        "Assistive Technology Expert"
     ]
     
     return job_title in accessibility_professional_titles
 
-
+#tested and working, just make sure we're converting profile_data to JSON format
 def add_to_json(filename, profile_data):
     
     with open(filename, "r+") as file: # open file in read and write mode
@@ -237,6 +240,5 @@ Web Developer, UX Designer, UI Designer, Software Engineer, Software Developer, 
 7. Add skills to JSON
 8. Compare to ACCESSIBILITY_KEYWORDS
 '''
-    
-    
-        
+
+
