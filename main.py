@@ -80,9 +80,8 @@ def extract_name():
     return name.get_text(strip=True)
 
 '''
-#TODO: Rewrite this so that we're just extracting regardless of title, and when we call extract_job_title() we can split
-into accessibility or software based on title, and if it's "" or not one of those titles we just won't add anything and move to next
-profile.
+Extracts headline from profile page, but still needs to be compared against
+accessibility and software professional titles, before being added to JSON
 '''
 def extract_job_title():
     source = driver.page_source 
