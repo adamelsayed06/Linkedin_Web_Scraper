@@ -44,7 +44,6 @@ def login():
 
     username = driver.find_element(By.ID, "username") # <input id="username"> on linkedin website, searches for this tag
     
-    
     time.sleep(2)
 
     password = driver.find_element(By.ID, "password") # <input id="password"> on linkedin website, searches for this tag
@@ -68,6 +67,10 @@ def extract_name():
     soup = BeautifulSoup(source, "html.parser") 
     
     name = soup.find('div', class_="jGartttxmtrDzkrUUMcDSSWGJxlJixOGnZIHk")
+
+    if name is None:
+        print("ERROR: Name element not found")
+        return ""
     
     return name.get_text(strip=True)
 
