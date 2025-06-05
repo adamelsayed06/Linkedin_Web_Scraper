@@ -206,7 +206,7 @@ def isSoftwareProfessional(job_title):
     
     return job_title in software_professional_titles
 
- # tested and working
+# tested and working
 def isAccessibilityProfessional(job_title):
     for keyword in ACCESSIBILITY_KEYWORDS:
         if keyword.lower() in job_title.lower():
@@ -277,9 +277,10 @@ if __name__ == "__main__":
 '''
 main flow:
 1. login to linkedin --  login()
-2. get list of profiles -- get_new_profiles()
-3. open each profile and scroll to bottom -- open_profile_and_scroll()
-4. extract headline & most recent job title
+2. get list of profiles -- get_new_accessibility_profiles, get_new_software_profiles => at this point we know they are accessibility/software professionals from the headline.
+3. open each profile, extract name, job title, and skills
+4. put into JSON
+3. open each new profile and extract analytics
 5. Based on titles they are either accessibility or software professionals, so categorize:  
 Web Developer, UX Designer, UI Designer, Software Engineer, Software Developer, Front End Developer, UIUX Accessibility, Software Accessibility, and Accessibility Tester
 6. Extract skills from profile
@@ -288,5 +289,6 @@ Web Developer, UX Designer, UI Designer, Software Engineer, Software Developer, 
 
 TODO: test getting new profiles, 
 '''
+
 
 
