@@ -251,7 +251,8 @@ Web Developer, UX Designer, UI Designer, Software Engineer, Software Developer, 
 7. Add skills to JSON
 8. Compare to ACCESSIBILITY_KEYWORDS
 
-TODO: test getting new profiles, 
+TODO: use mock set of profiles and write up main logic to extract data and add to JSON
+    THEN work on getting new profiles from LinkedIn group and using that as a source of profiles to extract data from
 '''
 
 
