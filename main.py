@@ -216,7 +216,7 @@ def main():
             profile_data = {
                 "name": name,
                 "job_title": job_title,
-                "skills": clean_data(skills)
+                "skills": skills
             }
 
             add_to_json("software_professionals.json", profile_data) #add to software professionals JSON
@@ -226,7 +226,7 @@ def main():
             profile_data = {
                 "name": name,
                 "job_title": job_title,
-                "skills": clean_data(skills)
+                "skills": skills
             }
             add_to_json("accessibility_professionals.json", profile_data) #add to accessibility professionals JSON
         
