@@ -61,7 +61,7 @@ def open_profile_and_scroll(profile_url):
     while time.time() - start < 5: #scrolls for 5 seconds
         driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
 
-#TODO: find element name
+#TODO: update class name
 def extract_name():
     source = driver.page_source 
     soup = BeautifulSoup(source, "html.parser") 
@@ -74,7 +74,11 @@ def extract_name():
     
     return name.get_text(strip=True)
 
-#TODO: find specific element names
+'''
+#TODO: Rewrite this so that we're just extracting regardless of title, and when we call extract_job_title() we can split
+into accessibility or software based on title, and if it's "" or not one of those titles we just won't add anything and move to next
+profile.
+'''
 def extract_job_title():
     source = driver.page_source 
     soup = BeautifulSoup(source, "html.parser") 
@@ -148,6 +152,7 @@ def get_new_profiles(count):
        
     return profiles
 
+#tested, and working
 def isSoftwareProfessional(job_title):
     software_professional_titles = [
         "Web Developer", "UX Designer", "UI Designer", 
@@ -158,6 +163,7 @@ def isSoftwareProfessional(job_title):
     
     return job_title in software_professional_titles
 
+# change names of accessibility professionals 
 def isAccessibilityProfessional(job_title):
     accessibility_professional_titles = [
         "Web Developer", "UX Designer", "UI Designer", 
@@ -168,7 +174,9 @@ def isAccessibilityProfessional(job_title):
     
     return job_title in accessibility_professional_titles
 
+
 def add_to_json(filename, profile_data):
+    
     with open(filename, "r+") as file: # open file in read and write mode
         try:
             data = json.load(file) # load existing data
@@ -178,6 +186,8 @@ def add_to_json(filename, profile_data):
         except Exception as e:
             print(f"Error loading JSON file: {e}")
             data = []
+    
+    time.sleep(2)
 
 def main():
     ROOT_URL = "" #PLACEHOLDER
@@ -211,12 +221,8 @@ def main():
         else:
             continue
         
-        
-
-
-
 if __name__ == "__main__":
-    main()
+    add_to_json("software_professionals.json", [{"name": "placeholder", "job_title": "placeholder", "skills": ["placeholder"]}]) #initialize JSON file
     
     
 '''
