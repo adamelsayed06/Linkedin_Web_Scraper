@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 from bs4 import BeautifulSoup
 import os
 import time
-import re
+import random
 import json
 
 load_dotenv()
@@ -64,11 +64,12 @@ def login():
 def open_profile_and_scroll(profile_url):
     # implement error handling for invalid URLs
     driver.get(profile_url) # opens your profile
-    time.sleep(5) # wait for page to load 5s
+    time.sleep(random.randint(3,5)) # wait for page to load 5s
     
     #scrolls to the bottom of the page
     start = time.time()
-    while time.time() - start < 5: #scrolls for 5 seconds
+    end = random.randint(4,8)
+    while time.time() - start < end: #scrolls for 4-8 seconds
         driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
 
 # tested and works
