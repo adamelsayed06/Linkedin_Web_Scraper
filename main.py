@@ -12,6 +12,7 @@ import re
 import json
 
 load_dotenv()
+#TODO: error handling, find swe + accessibility urls, and bot detection
 
 ACCESSIBILITY_KEYWORDS = {
     "accessibility", "a11y", "wcag", "screen reader", "assistive technology",
@@ -56,6 +57,7 @@ def login():
 
 # tested and works
 def open_profile_and_scroll(profile_url):
+    # implement error handling for invalid URLs
     driver.get(profile_url) # opens your profile
     time.sleep(5) # wait for page to load 5s
     
@@ -125,21 +127,6 @@ def extract_skills(profile_url):
             skills.append(truncated_skill)
     
     return skills
-
-'''
-def clean_data(data):
-    cleaned_data = []
-    for dataItem in data: #['accessibility', 'nope']
-        dataItem = re.sub(r'[\n\t]+', ' ', dataItem)
-        dataItem = re.sub(r'[^a-zA-Z ]', '', dataItem).strip().lower()
-        
-        for keyword in ACCESSIBILITY_KEYWORDS:
-            if keyword.lower() in dataItem:
-                cleaned_data.append(dataItem)
-                break #avoid duplicates
-    cleaned_data = list(set(cleaned_data)) #remove duplicates 
-    return cleaned_data
-'''
 
 #returns lists of new profiles to loop through, update class name
 def get_new_accessibility_profiles(count):
