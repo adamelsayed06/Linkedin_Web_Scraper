@@ -209,6 +209,8 @@ def main():
         job_title = extract_job_title()
         if isSoftwareProfessional(job_title):
             skills = extract_skills(profile) #MAKE SURE TO CLEAN DATA
+            # make all elements of skills unique
+            skills = list(set(skills)) # remove duplicates
 
             profile_data = {
                 "name": name,
@@ -231,6 +233,7 @@ def main():
             continue
         
 if __name__ == "__main__":
+    ''' # TESTING WITH HARDCODED PROFILES
     listOfProfileURLS = [
         "https://www.linkedin.com/in/adam-elsayed-9b0162245/", # swe profile
         "https://www.linkedin.com/in/adam-elsayed-5a7781357/", # profile with no headline
@@ -246,6 +249,7 @@ if __name__ == "__main__":
         if isSoftwareProfessional(job_title):
             print(f"{name} is a software professional with job title: {job_title}")
             skills = extract_skills(profile)
+            skills = list(set(skills)) # remove duplicates
             print(f"Skills: {skills}")
             profile_data = {
                 "name": name,
@@ -262,17 +266,7 @@ if __name__ == "__main__":
                 "job_title": job_title,
                 "skills": skills
             }
-            add_to_json("accessibility_professionals.json", profile_data)
-    '''
-    login()
-    ROOT_URL = "https://www.linkedin.com/in/adam-elsayed-9b0162245/"  # Replace with your LinkedIn profile URL
-    open_profile_and_scroll(ROOT_URL)
-    profiles = get_new_profiles(10)
-    for profile in profiles:
-        print(profile)
-        open_profile_and_scroll(profile)
-        name = extract_name()
-        print(name)
+            add_to_json("accessibility_professionals.json", profile_data) #add to accessibility professionals JSON
     '''
 '''
 main flow:
