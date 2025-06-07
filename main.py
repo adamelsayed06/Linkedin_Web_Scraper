@@ -225,8 +225,34 @@ def main():
             continue
         
 if __name__ == "__main__":
+    listOfProfileURLS = [
+        "https://www.linkedin.com/in/adam-elsayed-9b0162245/", # swe profile
+        "https://www.linkedin.com/in/adam-elsayed-5a7781357/", # profile with no headline
+        "https://www.linkedin.com/in/jorge-d-robles/", # swe profile
+        "https://www.linkedin.com/in/amywolfemls/", # accessibility profile
+        "https://www.linkedin.com/in/john-w-moyler-29549014/" # neither swe or accessibility profile
+    ]
     login()
-    print(get_new_accessibility_profiles(3))
+    for profile in listOfProfileURLS:
+        open_profile_and_scroll(profile)
+        name = extract_name()
+        job_title = extract_job_title()
+        if isSoftwareProfessional(job_title):
+            skills = extract_skills(profile)
+            profile_data = {
+                "name": name,
+                "job_title": job_title,
+                "skills": skills
+            }
+            add_to_json("software_professionals.json", profile_data) #add to software professionals JSON
+        elif isAccessibilityProfessional(job_title):
+            skills = extract_skills(profile)
+            profile_data = {
+                "name": name,
+                "job_title": job_title,
+                "skills": skills
+            }
+            add_to_json("accessibility_professionals.json", profile_data)
     '''
     login()
     ROOT_URL = "https://www.linkedin.com/in/adam-elsayed-9b0162245/"  # Replace with your LinkedIn profile URL
