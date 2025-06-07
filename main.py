@@ -158,6 +158,9 @@ def get_new_software_profiles(count):
 #tested, and working
 def isSoftwareProfessional(job_title):
     
+    #right now its checking if something like Data Engineering Intern @Stantec is in the list of software professional titles
+    # to fix, we should loop through the titles, and see if job_title contains any of the titles in the list
+    
     software_professional_titles = [
         "Web Developer", "UX Designer", "UI Designer", 
         "Software Engineer", "Software Developer", 
@@ -168,7 +171,10 @@ def isSoftwareProfessional(job_title):
         "Software Architect", "SWE", "SDE", "ML Engineer"
     ]
     
-    return job_title in software_professional_titles
+    for title in software_professional_titles:
+        if title.lower() in job_title.lower(): #e.g. "Software Engineer" in "Software Engineer at Company"
+            return True
+    return False
 
 # tested and working
 def isAccessibilityProfessional(job_title):
@@ -238,7 +244,9 @@ if __name__ == "__main__":
         name = extract_name()
         job_title = extract_job_title()
         if isSoftwareProfessional(job_title):
+            print(f"{name} is a software professional with job title: {job_title}")
             skills = extract_skills(profile)
+            print(f"Skills: {skills}")
             profile_data = {
                 "name": name,
                 "job_title": job_title,
@@ -246,7 +254,9 @@ if __name__ == "__main__":
             }
             add_to_json("software_professionals.json", profile_data) #add to software professionals JSON
         elif isAccessibilityProfessional(job_title):
+            print(f"{name} is an accessibility professional with job title: {job_title}")
             skills = extract_skills(profile)
+            print(f"Skills: {skills}")
             profile_data = {
                 "name": name,
                 "job_title": job_title,
