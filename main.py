@@ -13,6 +13,8 @@ import json
 
 load_dotenv()
 #TODO: error handling, find swe + accessibility urls, and bot detection
+# bot detection => human like behavior, pause 30 seconds between extractions of each profile, human like login,
+# rotating proxies and user agents.
 
 ACCESSIBILITY_KEYWORDS = {
     "accessibility", "a11y", "wcag", "screen reader", "assistive technology",
@@ -34,6 +36,9 @@ ACCESSIBILITY_KEYWORDS = {
 # auto install chrome driver
 chrome_opts = ChromeOptions() 
 chrome_opts.add_experimental_option("detach", True)
+chrome_opts.add_experimental_option("excludeSwitches", ["enable-automation"])
+chrome_opts.add_experimental_option("useAutomationExtension", False)
+chrome_opts.add_argument("--disable-blink-features=AutomationControlled")
 
 service = Service(ChromeDriverManager().install())
 driver = webdriver.Chrome(service=service, options=chrome_opts)
@@ -220,6 +225,7 @@ def main():
             continue
         
 if __name__ == "__main__":
+    login()
     ''' # TESTING WITH HARDCODED PROFILES
     listOfProfileURLS = [
         "https://www.linkedin.com/in/adam-elsayed-9b0162245/", # swe profile
