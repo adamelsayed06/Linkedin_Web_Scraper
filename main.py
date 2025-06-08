@@ -12,6 +12,13 @@ import random
 import json
 
 load_dotenv()
+'''
+We use get_new_accessibility_profiles & get_new_software_profiles to get a few thousand urls.
+Then we loop through each url, open the profile, extract name & job title,
+check based on job title if they are accessibility or software professionals, 
+if they're neither skip them, otherwise extract skills and add analytics
+to their respective JSON files.
+'''
 #TODO: error handling, find swe + accessibility urls, and bot detection
 # bot detection => human like behavior, pause 30 seconds between extractions of each profile, human like login,
 # rotating proxies and user agents.
@@ -135,16 +142,33 @@ def extract_skills(profile_url):
     return skills
 
 #returns lists of new profiles to loop through, update class name
-def get_new_accessibility_profiles(count):
+def get_new_accessibility_profiles():
     '''
-    Have group URL of accessibility professionals, scroll through page and look for see more results button, if there click it
-    and scroll to bottom of page, then extract headlines and profile URLs, from the headline determines if they are accessibility professionals
-    and adds URL to list of profiles to return NOT WORKING YET
+    WORKING BUT I NEED TO SCROLL THROUGH THE PAGE TO GET ALL PROFILES
+    this will give us a list of like 1000 profiles each of which we can scrape
+    # open_profile_and_scroll("https://www.linkedin.com/groups/4512178/members/")
     '''
-    profiles = []
+    source = driver.page_source
+    soup = BeautifulSoup(source, "html.parser")
+    profiles = [] 
     open_profile_and_scroll("https://www.linkedin.com/groups/4512178/members/")
+    time.sleep(10) # wait for me to scroll through page for 10 seconds CHANGE THIS
+    source = driver.page_source 
+    soup = BeautifulSoup(source, "html.parser") 
+    urls = soup.find_all('a', class_=["ember-view", "ui-conditional-link-wrapper", "ui-entity-action-row__link"])
+    for url in urls:
+        print(f"url: {url['href']}")
     
-    return profiles
+    for i in range(len(urls)):
+        url = urls[i]['href'] # get the href attribute of the a tag
+        if "linkedin.com" in url: # gets rid of the weird urls like linkedin.com/acessibility
+            continue
+        else:
+            url = "https://www.linkedin.com" + url # add the base URL to the profile URL
+        profiles.append(url)
+    
+    add_to_json("accessibility_profile_URLS.json", {"profile_URLS": profiles}) 
+    # for now we can just add it to a JSON file and then loop through the JSON file to extract data
 
 def get_new_software_profiles(count):
     pass
@@ -227,6 +251,7 @@ def main():
         
 if __name__ == "__main__":
     login()
+    get_new_accessibility_profiles()
     ''' # TESTING WITH HARDCODED PROFILES
     listOfProfileURLS = [
         "https://www.linkedin.com/in/adam-elsayed-9b0162245/", # swe profile
@@ -240,6 +265,7 @@ if __name__ == "__main__":
         open_profile_and_scroll(profile)
         name = extract_name()
         job_title = extract_job_title()
+        # CHECK IF ACCESSIBILITY PROFESSIONAL FIRST => THEN SOFTWARRE PROFESSIONAL
         if isSoftwareProfessional(job_title):
             print(f"{name} is a software professional with job title: {job_title}")
             skills = extract_skills(profile)
@@ -269,7 +295,7 @@ main flow:
 3. open each profile, extract name, job title, and skills
 4. put into JSON
 3. open each new profile and extract analytics
-5. Based on titles they are either accessibility or software professionals, so categorize:  
+5. Based on titles they are either accessibility or software professionals, (or neither) so categorize:  
 Web Developer, UX Designer, UI Designer, Software Engineer, Software Developer, Front End Developer, UIUX Accessibility, Software Accessibility, and Accessibility Tester
 6. Extract skills from profile
 7. Add skills to JSON
