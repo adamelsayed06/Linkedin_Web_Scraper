@@ -13,13 +13,14 @@ import json
 
 load_dotenv()
 '''
+MAIN LOGIC:
 We use get_new_accessibility_profiles & get_new_software_profiles to get a few thousand urls.
 Then we loop through each url, open the profile, extract name & job title,
 check based on job title if they are accessibility or software professionals, 
 if they're neither skip them, otherwise extract skills and add analytics
 to their respective JSON files.
 '''
-#TODO: error handling, find swe + accessibility urls, and bot detection
+#TODO: error handling, find swe urls, and bot detection
 # bot detection => human like behavior, pause 30 seconds between extractions of each profile, human like login,
 # rotating proxies and user agents.
 
@@ -217,6 +218,7 @@ def add_to_json(filename, profile_data):
     time.sleep(2)
 
 def main():
+    '''
     ROOT_URL = "" #PLACEHOLDER
     login()
     open_profile_and_scroll(ROOT_URL)
@@ -248,6 +250,7 @@ def main():
         
         else:
             continue
+    '''
         
 if __name__ == "__main__":
     login()
@@ -288,22 +291,6 @@ if __name__ == "__main__":
             }
             add_to_json("accessibility_professionals.json", profile_data) #add to accessibility professionals JSON
     '''
-'''
-main flow:
-1. login to linkedin --  login()
-2. get list of profiles -- get_new_accessibility_profiles, get_new_software_profiles => at this point we know they are accessibility/software professionals from the headline.
-3. open each profile, extract name, job title, and skills
-4. put into JSON
-3. open each new profile and extract analytics
-5. Based on titles they are either accessibility or software professionals, (or neither) so categorize:  
-Web Developer, UX Designer, UI Designer, Software Engineer, Software Developer, Front End Developer, UIUX Accessibility, Software Accessibility, and Accessibility Tester
-6. Extract skills from profile
-7. Add skills to JSON
-8. Compare to ACCESSIBILITY_KEYWORDS
-
-TODO: use mock set of profiles and write up main logic to extract data and add to JSON
-    THEN work on getting new profiles from LinkedIn group and using that as a source of profiles to extract data from
-'''
 
 
 
