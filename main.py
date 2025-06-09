@@ -2692,39 +2692,6 @@ def main(start, end):
             add_to_json("software_professionals.json", profile_data) # add to accessibility professionals JSON
         else:
             continue 
-    '''
-    ROOT_URL = "" #PLACEHOLDER
-    login()
-    open_profile_and_scroll(ROOT_URL)
-    for profile in profiles:
-        open_profile_and_scroll(profile)
-        name = extract_name()
-        job_title = extract_job_title()
-        if isSoftwareProfessional(job_title):
-            skills = extract_skills(profile) #MAKE SURE TO CLEAN DATA
-            # make all elements of skills unique
-            skills = list(set(skills)) # remove duplicates
-
-            profile_data = {
-                "name": name,
-                "job_title": job_title,
-                "skills": skills
-            }
-
-            add_to_json("software_professionals.json", profile_data) #add to software professionals JSON
-        
-        elif isAccessibilityProfessional(job_title):
-            skills = extract_skills(profile) #MAKE SURE TO CLEAN DATA
-            profile_data = {
-                "name": name,
-                "job_title": job_title,
-                "skills": skills
-            }
-            add_to_json("accessibility_professionals.json", profile_data) #add to accessibility professionals JSON
-        
-        else:
-            continue
-    '''
         
 if __name__ == "__main__":
     main(50, 100) # excludes profile 50, so next iteration will be (50, 100) and so on
