@@ -2489,6 +2489,16 @@ ACCESSIBILITY_KEYWORDS = {
     "accomodation", "advocacy"
 }
 
+software_professional_titles = [
+        "Web Developer", "UX Designer", "UI Designer", 
+        "Software Engineer", "Software Developer", 
+        "Front End Developer", "Backend Developer", 
+        "Full Stack Developer", "Mobile App Developer", 
+        "DevOps Engineer", "Data Scientist", 
+        "Machine Learning Engineer", "Cloud Engineer", "Data Engineer",
+        "Software Architect", "SWE", "SDE", "ML Engineer", "MLE", "Data Analyst"
+    ]
+
 # auto install chrome driver
 chrome_opts = ChromeOptions() 
 chrome_opts.add_experimental_option("detach", True)
@@ -2621,21 +2631,7 @@ def get_new_accessibility_profiles():
 def get_new_software_profiles(count):
     pass
 #tested, and working
-def isSoftwareProfessional(job_title):
-    
-    #right now its checking if something like Data Engineering Intern @Stantec is in the list of software professional titles
-    # to fix, we should loop through the titles, and see if job_title contains any of the titles in the list
-    
-    software_professional_titles = [
-        "Web Developer", "UX Designer", "UI Designer", 
-        "Software Engineer", "Software Developer", 
-        "Front End Developer", "Backend Developer", 
-        "Full Stack Developer", "Mobile App Developer", 
-        "DevOps Engineer", "Data Scientist", 
-        "Machine Learning Engineer", "Cloud Engineer", "Data Engineer",
-        "Software Architect", "SWE", "SDE", "ML Engineer"
-    ]
-    
+def isSoftwareProfessional(job_title):    
     for title in software_professional_titles:
         if title.lower() in job_title.lower(): #e.g. "Software Engineer" in "Software Engineer at Company"
             return True
