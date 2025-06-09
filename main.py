@@ -2731,7 +2731,7 @@ if __name__ == "__main__":
             }
             add_to_json("accessibility_professionals.json", profile_data) #add to accessibility professionals JSON
     '''
-    # tmrw let's write up the getting software professionals bit, and get all accessibility urls (scroll for 30 mins), get all software urls
+    # we currently have around 2400 urls => maybe 1200 will meet our criteria
 
 
 
