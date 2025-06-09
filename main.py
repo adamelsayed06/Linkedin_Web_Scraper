@@ -2731,7 +2731,10 @@ if __name__ == "__main__":
             }
             add_to_json("accessibility_professionals.json", profile_data) #add to accessibility professionals JSON
     '''
-    # we currently have around 2400 urls => maybe 1200 will meet our criteria
+    # we currently have around 2400 urls => maybe 1200 will meet our criteria 
+    # write up get software profiles function => roughly 2500 profiles as well would be good, maybe less?
+    # run same script to get information from software professionals
+    # then we can start comparing analytics, since scraping will be done
 
 
 
