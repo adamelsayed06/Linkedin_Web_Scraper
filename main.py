@@ -38,7 +38,9 @@ ACCESSIBILITY_KEYWORDS = {
     "human-centered design", "empathy-driven design", "barrier-free access",
     "IAAP Certified", "Section 508", "Trusted Tester", 
     "European Accessibility Act (EAA) Compliance", "PDF remediation", 
-    "A11y audits", "Accessibility SME (Subject matter expert)"
+    "A11y audits", "Accessibility SME (Subject matter expert)", "accessible", "inclusion",
+    "universal", "disability", "inclusive", "UX", "UI", "assistive", "equity", "barrier-free",
+    "accomodation", "advocacy"
 }
 
 # auto install chrome driver
@@ -142,7 +144,6 @@ def extract_skills(profile_url):
     
     return skills
 
-#returns lists of new profiles to loop through, update class name
 def get_new_accessibility_profiles():
     '''
     WORKING BUT I NEED TO SCROLL THROUGH THE PAGE TO GET ALL PROFILES
@@ -153,7 +154,7 @@ def get_new_accessibility_profiles():
     soup = BeautifulSoup(source, "html.parser")
     profiles = [] 
     open_profile_and_scroll("https://www.linkedin.com/groups/4512178/members/")
-    time.sleep(10) # wait for me to scroll through page for 10 seconds CHANGE THIS
+    time.sleep(45 * 60) # 30 minutes
     source = driver.page_source 
     soup = BeautifulSoup(source, "html.parser") 
     urls = soup.find_all('a', class_=["ember-view", "ui-conditional-link-wrapper", "ui-entity-action-row__link"])
