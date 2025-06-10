@@ -2733,4 +2733,7 @@ if __name__ == "__main__":
     # then we can start comparing analytics, since scraping will be done
 
 
-
+# Experiment with mock 10 credits => see if this reaches our goal
+# 3788 credits => 1339 software profiles
+# scrape remaining software profiles, and use the api endpoint to get info
+# put into a JSON file and run analytics, maybe use plt/streamlit?
