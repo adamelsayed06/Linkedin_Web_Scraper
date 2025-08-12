@@ -10,6 +10,10 @@ conn_string = "host='localhost' dbname='my_database' user='postgres' password='s
 
 nlp = spacy.load("en_core_web_sm")
 
+# Logic -> connect to database, fetch skills and headlines from profiles table
+# process and extract keywords using spaCy, and we can save the keywords in a new column
+# so we have keywords associated with each profile
+
 def connect():
     try:
         conn = psycopg2.connect(conn_string)
@@ -58,7 +62,6 @@ def main():
     
     if not conn:
         return
-    
     
     profiles = fetch_profiles(conn)
     if not profiles:
